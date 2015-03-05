@@ -182,7 +182,7 @@ function IDE_Morph(isAutoFill) {
 
 IDE_Morph.prototype.init = function (isAutoFill) {
     // global font setting
-    MorphicPreferences.globalFontFamily = 'Helvetica, Arial';
+    MorphicPreferences.globalFontFamily = 'Verdana';
 
     // restore saved user preferences
     this.userLanguage = null; // user language preference for startup
@@ -661,7 +661,7 @@ IDE_Morph.prototype.createControlBar = function () {
     button.pressColor = colors[2];
     button.labelMinExtent = new Point(36, 18);
     button.padding = 0;
-    button.labelShadowOffset = new Point(-1, -1);
+    button.labelShadowOffset = new Point(4, 4);
     button.labelShadowColor = colors[1];
     button.labelColor = this.buttonLabelColor;
     button.contrast = this.buttonContrast;
@@ -923,7 +923,7 @@ IDE_Morph.prototype.createSpriteBar = function () {
         nameField,
         padlock,
         thumbnail,
-        tabCorner = 15,
+        tabCorner = 3,
         tabColors = this.tabColors,
         tabBar = new AlignmentMorph('row', -tabCorner * 2),
         tab,
@@ -1039,9 +1039,9 @@ IDE_Morph.prototype.createSpriteBar = function () {
     );
     padlock.label.isBold = false;
     padlock.label.setColor(this.buttonLabelColor);
-    padlock.color = tabColors[2];
-    padlock.highlightColor = tabColors[0];
-    padlock.pressColor = tabColors[1];
+    padlock.color = tabColors[0];
+    padlock.highlightColor = tabColors[1];
+    padlock.pressColor = tabColors[2];
 
     padlock.tick.shadowOffset = MorphicPreferences.isFlat ?
             new Point() : new Point(-1, -1);
