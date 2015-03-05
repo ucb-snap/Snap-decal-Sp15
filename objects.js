@@ -168,19 +168,20 @@ SpriteMorph.prototype.categories =
     ];
 
 SpriteMorph.prototype.blockColor = {
-    motion : new Color(74, 108, 212),
-    looks : new Color(143, 86, 227),
-    sound : new Color(207, 74, 217),
-    pen : new Color(0, 161, 120),
-    control : new Color(230, 168, 34),
-    sensing : new Color(4, 148, 220),
-    operators : new Color(98, 194, 19),
-    variables : new Color(243, 118, 29),
-    lists : new Color(217, 77, 17),
-    other: new Color(150, 150, 150)
+
+    motion : new Color(Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) ),
+    looks : new Color(Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) ),
+    sound : new Color(Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) ),
+    pen : new Color(Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) ),
+    control : new Color(Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) ),
+    sensing : new Color(Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) ),
+    operators : new Color(Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) ),
+    variables : new Color(Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) ),
+    lists : new Color(Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) ),
+    other: new Color(Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) , Math.floor(Math.random() * 256) )
 };
 
-SpriteMorph.prototype.paletteColor = new Color(55, 55, 55);
+SpriteMorph.prototype.paletteColor = new Color(155, 155, 155);
 SpriteMorph.prototype.paletteTextColor = new Color(230, 230, 230);
 SpriteMorph.prototype.sliderColor
     = SpriteMorph.prototype.paletteColor.lighter(30);
@@ -201,6 +202,13 @@ SpriteMorph.prototype.bubbleMaxTextWidth = 130;
 
 SpriteMorph.prototype.initBlocks = function () {
     SpriteMorph.prototype.blocks = {
+
+        snapchange: {
+            only: SpriteMorph,
+            type: 'command',
+            category: 'motion',
+            spec: 'turn 90 degrees right or left %n'
+        },
 
         // Motion
         forward: {
@@ -1703,6 +1711,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
 
     if (cat === 'motion') {
 
+        blocks.push(block('snapchange'));
         blocks.push(block('forward'));
         blocks.push(block('turn'));
         blocks.push(block('turnLeft'));
@@ -3280,6 +3289,13 @@ Morph.prototype.setPosition = function (aPoint, justMe) {
     if ((delta.x !== 0) || (delta.y !== 0)) {
         this.moveBy(delta, justMe);
     }
+};
+
+SpriteMorph.prototype.snapchange = function (num) {
+    if (num > 0)
+        this.setHeading(this.heading + (90 || 0));
+    else
+        this.setHeading(this.heading - (90 || 0));
 };
 
 SpriteMorph.prototype.forward = function (steps) {
