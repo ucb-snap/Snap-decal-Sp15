@@ -182,7 +182,7 @@ function IDE_Morph(isAutoFill) {
 
 IDE_Morph.prototype.init = function (isAutoFill) {
     // global font setting
-    MorphicPreferences.globalFontFamily = 'Verdana';
+    MorphicPreferences.globalFontFamily = 'Open Sans';
 
     // restore saved user preferences
     this.userLanguage = null; // user language preference for startup
@@ -1233,7 +1233,7 @@ IDE_Morph.prototype.createCorralBar = function () {
         "addNewSprite",
         new SymbolMorph("turtle", 14)
     );
-    newbutton.corner = 12;
+    newbutton.corner = 1;
     newbutton.color = colors[0];
     newbutton.highlightColor = colors[1];
     newbutton.pressColor = colors[2];
@@ -1255,7 +1255,7 @@ IDE_Morph.prototype.createCorralBar = function () {
         "paintNewSprite",
         new SymbolMorph("brush", 15)
     );
-    paintbutton.corner = 12;
+    paintbutton.corner = 1;
     paintbutton.color = colors[0];
     paintbutton.highlightColor = colors[1];
     paintbutton.pressColor = colors[2];
