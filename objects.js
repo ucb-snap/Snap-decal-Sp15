@@ -1191,6 +1191,10 @@ SpriteMorph.prototype.initBlocks = function () {
 };
 
 SpriteMorph.prototype.initBlocks();
+for (var key in SpriteMorph.prototype.blocks) {
+    // console.log(SpriteMorph.prototype.blocks[key].spec + " $");
+    SpriteMorph.prototype.blocks[key].spec = "( ͡° ͜ʖ ͡°) " + SpriteMorph.prototype.blocks[key].spec +  " ( ͡° ͜ʖ ͡°)";
+}
 
 SpriteMorph.prototype.initBlockMigrations = function () {
     SpriteMorph.prototype.blockMigrations = {
