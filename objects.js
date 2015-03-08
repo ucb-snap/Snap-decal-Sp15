@@ -167,7 +167,7 @@ SpriteMorph.prototype.categories =
         'other'
     ];
 
-SpriteMorph.wprototype.blockColor = {
+SpriteMorph.prototype.blockColor = {
     motion : new Color(74, 108, 212),
     looks : new Color(143, 86, 227),
     sound : new Color(207, 74, 217),
