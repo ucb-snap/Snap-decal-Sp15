@@ -180,10 +180,10 @@ SpriteMorph.prototype.blockColor = {
     other: new Color(150, 150, 150)
 };
 
-SpriteMorph.prototype.paletteColor = new Color(55, 55, 55);
-SpriteMorph.prototype.paletteTextColor = new Color(230, 230, 230);
+SpriteMorph.prototype.paletteColor = new Color(255, 153, 205);
+SpriteMorph.prototype.paletteTextColor = new Color(23, 23, 23);
 SpriteMorph.prototype.sliderColor
-    = SpriteMorph.prototype.paletteColor.lighter(30);
+    = SpriteMorph.prototype.paletteColor.darker(30);
 SpriteMorph.prototype.isCachingPrimitives = true;
 
 SpriteMorph.prototype.enableNesting = true;
