@@ -164,7 +164,8 @@ SpriteMorph.prototype.categories =
         'pen',
         'variables',
         'lists',
-        'other'
+        'other',
+        'random',
     ];
 
 SpriteMorph.prototype.blockColor = {
@@ -177,7 +178,8 @@ SpriteMorph.prototype.blockColor = {
     operators : new Color(98, 194, 19),
     variables : new Color(243, 118, 29),
     lists : new Color(217, 77, 17),
-    other: new Color(150, 150, 150)
+    other: new Color(150, 150, 150),
+    random: new Color(170, 170, 170),
 };
 
 SpriteMorph.prototype.paletteColor = new Color(55, 55, 55);
@@ -331,6 +333,13 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'looks',
             spec: 'say %s for %n secs',
             defaults: [localize('Hello!'), 2]
+        },
+        doHiHiHiFor: {
+            only: SpriteMorph,
+            type: 'command',
+            category: 'looks',
+            spec: 'say %s for %n secs',
+            defaults: [localize('HIIIIIIIIIIIIIIIIII'), 10]
         },
         bubble: {
             only: SpriteMorph,
@@ -1146,6 +1155,12 @@ SpriteMorph.prototype.initBlocks = function () {
         doReplaceInList: {
             type: 'command',
             category: 'lists',
+            spec: 'replace item %idx of %l with %s',
+            defaults: [1, null, localize('thing')]
+        },
+        doDeleteInList: {
+            type: 'command',
+            category: 'list',
             spec: 'replace item %idx of %l with %s',
             defaults: [1, null, localize('thing')]
         },
@@ -2065,6 +2080,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('doDeleteFromList'));
         blocks.push(block('doInsertInList'));
         blocks.push(block('doReplaceInList'));
+        blocks.push(block('doDeleteInList'));
 
     // for debugging: ///////////////
 
