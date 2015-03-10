@@ -1049,7 +1049,7 @@ var standardSettings = {
     minimumFontHeight: getMinimumFontHeight(), // browser settings
     globalFontFamily: '',
     menuFontName: 'sans-serif',
-    menuFontSize: 12,
+    menuFontSize: 15,
     bubbleHelpFontSize: 10,
     prompterFontName: 'sans-serif',
     prompterFontSize: 12,
