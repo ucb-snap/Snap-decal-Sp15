@@ -164,7 +164,8 @@ SpriteMorph.prototype.categories =
         'pen',
         'variables',
         'lists',
-        'other'
+        'other',
+        'jeffreyblock'
     ];
 
 SpriteMorph.prototype.blockColor = {
@@ -177,7 +178,8 @@ SpriteMorph.prototype.blockColor = {
     operators : new Color(98, 194, 19),
     variables : new Color(243, 118, 29),
     lists : new Color(217, 77, 17),
-    other: new Color(150, 150, 150)
+    other: new Color(150, 150, 150),
+    jeffreyblock: new Color(200, 100, 10)
 };
 
 SpriteMorph.prototype.paletteColor = new Color(55, 55, 55);
@@ -202,13 +204,14 @@ SpriteMorph.prototype.bubbleMaxTextWidth = 130;
 SpriteMorph.prototype.initBlocks = function () {
     SpriteMorph.prototype.blocks = {
 
+        //Jeffreyblock
+
         // Motion
         forward: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'move %n steps',
-            defaults: [10]
+            spec: 'Go Giants!!'
         },
         turn: {
             only: SpriteMorph,
