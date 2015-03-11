@@ -164,6 +164,7 @@ SpriteMorph.prototype.categories =
         'pen',
         'variables',
         'lists',
+        'xperimental',
         'other'
     ];
 
@@ -177,6 +178,7 @@ SpriteMorph.prototype.blockColor = {
     operators : new Color(98, 194, 19),
     variables : new Color(243, 118, 29),
     lists : new Color(217, 77, 17),
+    xperimental : new Color(255,105,180),
     other: new Color(150, 150, 150)
 };
 
@@ -203,6 +205,13 @@ SpriteMorph.prototype.initBlocks = function () {
     SpriteMorph.prototype.blocks = {
 
         // Motion
+        moving: {
+            only: SpriteMorph,
+            type: 'command',
+            category: 'motion',
+            spec: 'move %n steps',
+            defaults: [25]
+        },
         forward: {
             only: SpriteMorph,
             type: 'command',
@@ -1186,7 +1195,16 @@ SpriteMorph.prototype.initBlocks = function () {
             type: 'reporter',
             category: 'other',
             spec: 'code of %cmdRing'
-        }
+        },
+
+        //Xperimental category -- Florin
+        moving: {
+            only: SpriteMorph,
+            type: 'command',
+            category: 'xperimental',
+            spec: 'move %n steps',
+            defaults: [13]
+        },
     };
 };
 
@@ -1754,6 +1772,12 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push('-');
         blocks.push(block('comeToFront'));
         blocks.push(block('goBack'));
+
+    //if for xoperimental
+    } else if (cat === 'xperimental') {
+
+        blocks.push(block('moving'));
+        
 
     // for debugging: ///////////////
 
