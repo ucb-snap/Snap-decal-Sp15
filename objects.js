@@ -169,12 +169,12 @@ SpriteMorph.prototype.categories =
 
 SpriteMorph.prototype.blockColor = {
     motion : new Color(255 - 74, 255 - 108, 255 - 212),
-    looks : new Color(143, 86, 227),
+    looks : new Color(255, 20, 147),
     sound : new Color(207, 74, 217),
-    pen : new Color(0, 161, 120),
-    control : new Color(230, 168, 34),
-    sensing : new Color(4, 148, 220),
-    operators : new Color(98, 194, 19),
+    pen : new Color(19, 81, 216),
+    control : new Color(57, 255, 20),
+    sensing : new Color(170, 1, 20),
+    operators : new Color(255, 215, 0),
     variables : new Color(243, 118, 29),
     lists : new Color(217, 77, 17),
     other: new Color(150, 150, 150)
