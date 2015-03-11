@@ -168,9 +168,9 @@ SpriteMorph.prototype.categories =
     ];
 
 SpriteMorph.prototype.blockColor = {
-    motion : new Color(74, 108, 212),
-    looks : new Color(143, 86, 227),
-    sound : new Color(207, 74, 217),
+    motion : new Color(255-74, 255-108, 255-212),
+    looks : new Color(255-143, 255-86, 255-227),
+    sound : new Color(255-207, 255-74, 255-217),
     pen : new Color(0, 161, 120),
     control : new Color(230, 168, 34),
     sensing : new Color(4, 148, 220),
@@ -901,10 +901,10 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'other',
             spec: '%rp %ringparms'
         },
-        reportSum: {
+        reportplusOne: {
             type: 'reporter',
             category: 'operators',
-            spec: '%n + %n'
+            spec: '%n + 1'
         },
         reportDifference: {
             type: 'reporter',
@@ -1270,10 +1270,10 @@ SpriteMorph.prototype.blockAlternatives = {
     reportMouseY: ['reportMouseX'],
 
     // operators:
-    reportSum: ['reportDifference', 'reportProduct', 'reportQuotient'],
-    reportDifference: ['reportSum', 'reportProduct', 'reportQuotient'],
-    reportProduct: ['reportDifference', 'reportSum', 'reportQuotient'],
-    reportQuotient: ['reportDifference', 'reportProduct', 'reportSum'],
+    reportplusOne: ['reportDifference', 'reportProduct', 'reportQuotient'],
+    reportDifference: ['reportplusOne', 'reportProduct', 'reportQuotient'],
+    reportProduct: ['reportDifference', 'reportplusOne', 'reportQuotient'],
+    reportQuotient: ['reportDifference', 'reportProduct', 'reportplusOne'],
     reportLessThan: ['reportEquals', 'reportGreaterThan'],
     reportEquals: ['reportLessThan', 'reportGreaterThan'],
     reportGreaterThan: ['reportEquals', 'reportLessThan'],
@@ -1938,7 +1938,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reifyPredicate'));
         blocks.push('#');
         blocks.push('-');
-        blocks.push(block('reportSum'));
+        blocks.push(block('reportplusOne'));
         blocks.push(block('reportDifference'));
         blocks.push(block('reportProduct'));
         blocks.push(block('reportQuotient'));
@@ -5097,7 +5097,7 @@ StageMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reifyPredicate'));
         blocks.push('#');
         blocks.push('-');
-        blocks.push(block('reportSum'));
+        blocks.push(block('reportplusOne'));
         blocks.push(block('reportDifference'));
         blocks.push(block('reportProduct'));
         blocks.push(block('reportQuotient'));
