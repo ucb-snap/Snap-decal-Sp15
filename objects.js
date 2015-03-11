@@ -165,19 +165,22 @@ SpriteMorph.prototype.categories =
         'variables',
         'lists',
         'other'
+        
+
     ];
 
 SpriteMorph.prototype.blockColor = {
-    motion : new Color(55, 108, 212),
-    looks : new Color(234, 86, 227),
-    sound : new Color(234, 74, 217),
-    pen : new Color(0, 13, 120),
-    control : new Color(30, 168, 34),
-    sensing : new Color(4, 143, 220),
-    operators : new Color(87, 194, 19),
-    variables : new Color(23, 118, 29),
-    lists : new Color(23, 77, 17),
+    motion : new Color(0, 0, 0),
+    looks : new Color(143, 86, 227),
+    sound : new Color(207, 74, 217),
+    pen : new Color(0, 161, 120),
+    control : new Color(230, 168, 34),
+    sensing : new Color(4, 148, 220),
+    operators : new Color(98, 194, 19),
+    variables : new Color(243, 118, 29),
+    lists : new Color(217, 77, 17),
     other: new Color(150, 150, 150)
+
 };
 
 SpriteMorph.prototype.paletteColor = new Color(55, 55, 55);
@@ -207,106 +210,106 @@ SpriteMorph.prototype.initBlocks = function () {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'move %n steps',
-            defaults: [10]
+            spec: 'Move %n Steps',
+            defaults: [100]
         },
         turn: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'turn %clockwise %n degrees',
-            defaults: [15]
+            spec: 'Turn %clockwise %n Degrees',
+            defaults: [150]
         },
         turnLeft: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'turn %counterclockwise %n degrees',
-            defaults: [15]
+            spec: 'Turn %counterclockwise %n Degrees',
+            defaults: [150]
         },
         setHeading: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'point in direction %dir'
+            spec: 'Point in Direction %dir'
         },
         doFaceTowards: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'point towards %dst'
+            spec: 'Point Towards %dst'
         },
         gotoXY: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'go to x: %n y: %n',
+            spec: 'Go to x: %n y: %n',
             defaults: [0, 0]
         },
         doGotoObject: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'go to %dst'
+            spec: 'Go to %dst'
         },
         doGlide: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'glide %n secs to x: %n y: %n',
+            spec: 'Glide %n Secs to x: %n y: %n',
             defaults: [1, 0, 0]
         },
         changeXPosition: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'change x by %n',
-            defaults: [10]
+            spec: 'Change x by %n',
+            defaults: [100]
         },
         setXPosition: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'set x to %n',
+            spec: 'Set x to %n',
             defaults: [0]
         },
         changeYPosition: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'change y by %n',
-            defaults: [10]
+            spec: 'Change y by %n',
+            defaults: [100]
         },
         setYPosition: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'set y to %n',
+            spec: 'Set y to %n',
             defaults: [0]
         },
         bounceOffEdge: {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'if on edge, bounce'
+            spec: 'If on Edge, Bounce'
         },
         xPosition: {
             only: SpriteMorph,
             type: 'reporter',
             category: 'motion',
-            spec: 'x position'
+            spec: 'X Position'
         },
         yPosition: {
             only: SpriteMorph,
             type: 'reporter',
             category: 'motion',
-            spec: 'y position'
+            spec: 'Y Position'
         },
         direction: {
             only: SpriteMorph,
             type: 'reporter',
             category: 'motion',
-            spec: 'direction'
+            spec: 'Direction'
         },
 
         // Looks
