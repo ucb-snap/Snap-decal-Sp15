@@ -9659,6 +9659,7 @@ HandMorph.prototype.processMouseMove = function (event) {
     );
 
     this.setPosition(pos);
+    // this.color = new Color(event.pageX % 255, event.pageY % 255, event.pageX % 255);
 
     // determine the new mouse-over-list:
     // mouseOverNew = this.allMorphsAtPointer();

@@ -104,9 +104,21 @@ IDE_Morph.prototype.setDefaultDesign = function () {
     SpriteMorph.prototype.sliderColor
         = SpriteMorph.prototype.paletteColor.lighter(30);
 
+    // IDE_Morph.prototype.buttonContrast = 30;
+    // IDE_Morph.prototype.backgroundColor = new Color(40, 40, 40);
+    // IDE_Morph.prototype.frameColor = SpriteMorph.prototype.paletteColor;
+
     IDE_Morph.prototype.buttonContrast = 30;
-    IDE_Morph.prototype.backgroundColor = new Color(40, 40, 40);
-    IDE_Morph.prototype.frameColor = SpriteMorph.prototype.paletteColor;
+    IDE_Morph.prototype.paletteBackgroundColor = SpriteMorph.prototype.paletteColor.lighter(8); // outline between boxes
+    IDE_Morph.prototype.backgroundColor = new Color(40, 40, 40); // outline between boxes
+    IDE_Morph.prototype.controlBarColor = SpriteMorph.prototype.paletteColor // outline between boxes
+    IDE_Morph.prototype.controlButtonColor = SpriteMorph.prototype.paletteColor.lighter(8);; // outline between boxes
+    IDE_Morph.prototype.aboveTabColor = SpriteMorph.prototype.paletteColor;
+    IDE_Morph.prototype.frameColor = SpriteMorph.prototype.paletteColor; //category button backgrounds, buttons below action frame
+    IDE_Morph.prototype.categoryColor = SpriteMorph.prototype.paletteColor; //category button backgrounds, buttons below action frame
+    IDE_Morph.prototype.corralBarColor = SpriteMorph.prototype.paletteColor;//category button backgrounds, buttons below action frame
+
+
 
     IDE_Morph.prototype.groupColor
         = SpriteMorph.prototype.paletteColor.lighter(8);
@@ -134,7 +146,7 @@ IDE_Morph.prototype.setDefaultDesign = function () {
 
 IDE_Morph.prototype.setFlatDesign = function () {
     MorphicPreferences.isFlat = true;
-    SpriteMorph.prototype.paletteColor = new Color(255, 255, 255);
+    SpriteMorph.prototype.paletteColor = new Color(144, 164, 174);
     SpriteMorph.prototype.paletteTextColor = new Color(70, 70, 70);
     StageMorph.prototype.paletteTextColor
         = SpriteMorph.prototype.paletteTextColor;
@@ -142,12 +154,19 @@ IDE_Morph.prototype.setFlatDesign = function () {
     SpriteMorph.prototype.sliderColor = SpriteMorph.prototype.paletteColor;
 
     IDE_Morph.prototype.buttonContrast = 30;
-    IDE_Morph.prototype.backgroundColor = new Color(200, 200, 200);
-    IDE_Morph.prototype.frameColor = new Color(255, 255, 255);
+    IDE_Morph.prototype.paletteBackgroundColor = new Color(144, 164, 174); // outline between boxes
+    IDE_Morph.prototype.backgroundColor = new Color(144, 164, 174); // outline between boxes
+    IDE_Morph.prototype.controlBarColor = new Color(68, 138, 255); // outline between boxes
+    IDE_Morph.prototype.controlButtonColor = new Color(68, 138, 255); // outline between boxes
+    IDE_Morph.prototype.aboveTabColor = new Color(144, 164, 174);
+    IDE_Morph.prototype.frameColor = new Color(68, 138, 255); //category button backgrounds, buttons below action frame
+    IDE_Morph.prototype.categoryColor = new Color(120, 144, 156); //category button backgrounds, buttons below action frame
+    IDE_Morph.prototype.corralBarColor = new Color(96, 125, 139); //category button backgrounds, buttons below action frame
 
-    IDE_Morph.prototype.groupColor = new Color(230, 230, 230);
+
+    IDE_Morph.prototype.groupColor = new Color(176, 190, 197);
     IDE_Morph.prototype.sliderColor = SpriteMorph.prototype.sliderColor;
-    IDE_Morph.prototype.buttonLabelColor = new Color(70, 70, 70);
+    IDE_Morph.prototype.buttonLabelColor = new Color(240, 240, 240);
     IDE_Morph.prototype.tabColors = [
         IDE_Morph.prototype.groupColor.lighter(60),
         IDE_Morph.prototype.groupColor.darker(10),
@@ -397,7 +416,7 @@ IDE_Morph.prototype.buildPanes = function () {
     this.createControlBar();
     this.createCategories();
     this.createPalette();
-    this.createStage();
+    this.createStage(); 
     this.createSpriteBar();
     this.createSpriteEditor();
     this.createCorralBar();
@@ -423,9 +442,9 @@ IDE_Morph.prototype.createLogo = function () {
                 0
             );
         gradient.addColorStop(0, 'black');
-        gradient.addColorStop(0.5, myself.frameColor.toString());
+        gradient.addColorStop(0.5, myself.controlBarColor.toString());
         context.fillStyle = MorphicPreferences.isFlat ?
-                myself.frameColor.toString() : gradient;
+                myself.controlBarColor.toString() : gradient;
         context.fillRect(0, 0, this.width(), this.height());
         if (this.texture) {
             this.drawTexture(this.texture);
@@ -465,7 +484,7 @@ IDE_Morph.prototype.createControlBar = function () {
         cloudButton,
         x,
         colors = [
-            this.groupColor,
+            this.controlButtonColor,
             this.frameColor.darker(50),
             this.frameColor.darker(50)
         ],
@@ -476,7 +495,7 @@ IDE_Morph.prototype.createControlBar = function () {
     }
 
     this.controlBar = new Morph();
-    this.controlBar.color = this.frameColor;
+    this.controlBar.color = this.controlBarColor;
     this.controlBar.setHeight(this.logo.height()); // height is fixed
     this.controlBar.mouseClickLeft = function () {
         this.world().fillPage();
@@ -769,14 +788,14 @@ IDE_Morph.prototype.createCategories = function () {
         this.categories.destroy();
     }
     this.categories = new Morph();
-    this.categories.color = this.groupColor;
+    this.categories.color = this.paletteBackgroundColor;
     this.categories.silentSetWidth(this.logo.width()); // width is fixed
 
     function addCategoryButton(category) {
         var labelWidth = 75,
             colors = [
-                myself.frameColor,
-                myself.frameColor.darker(50),
+                myself.categoryColor,
+                myself.categoryColor.darker(50),
                 SpriteMorph.prototype.blockColor[category]
             ],
             button;
@@ -868,7 +887,7 @@ IDE_Morph.prototype.createPalette = function (forSearching) {
             null,
             null,
             this.currentSprite.sliderColor
-        );
+            );
     } else {
         this.palette = this.currentSprite.palette(this.currentCategory);
     }
@@ -935,8 +954,10 @@ IDE_Morph.prototype.createSpriteBar = function () {
         this.spriteBar.destroy();
     }
 
+
+
     this.spriteBar = new Morph();
-    this.spriteBar.color = this.frameColor;
+    this.spriteBar.color = this.aboveTabColor;
     this.add(this.spriteBar);
 
     function addRotationStyleButton(rotationStyle) {
@@ -1070,6 +1091,12 @@ IDE_Morph.prototype.createSpriteBar = function () {
         myself.fixLayout('tabEditor');
     };
 
+    var allEdge = 1;
+    // if (MorphicPreferences.isFlat) {
+    //     tabCorner = 1;
+    //     allEdge = 3;
+    // }
+
     tab = new TabMorph(
         tabColors,
         null, // target
@@ -1079,9 +1106,10 @@ IDE_Morph.prototype.createSpriteBar = function () {
             return myself.currentTab === 'scripts';
         }
     );
+    
     tab.padding = 3;
     tab.corner = tabCorner;
-    tab.edge = 1;
+    tab.edge = allEdge;
     tab.labelShadowOffset = new Point(-1, -1);
     tab.labelShadowColor = tabColors[1];
     tab.labelColor = this.buttonLabelColor;
@@ -1100,7 +1128,7 @@ IDE_Morph.prototype.createSpriteBar = function () {
     );
     tab.padding = 3;
     tab.corner = tabCorner;
-    tab.edge = 1;
+    tab.edge = allEdge;
     tab.labelShadowOffset = new Point(-1, -1);
     tab.labelShadowColor = tabColors[1];
     tab.labelColor = this.buttonLabelColor;
@@ -1119,7 +1147,7 @@ IDE_Morph.prototype.createSpriteBar = function () {
     );
     tab.padding = 3;
     tab.corner = tabCorner;
-    tab.edge = 1;
+    tab.edge = allEdge;
     tab.labelShadowOffset = new Point(-1, -1);
     tab.labelShadowColor = tabColors[1];
     tab.labelColor = this.buttonLabelColor;
@@ -1213,7 +1241,7 @@ IDE_Morph.prototype.createCorralBar = function () {
         newbutton,
         paintbutton,
         colors = [
-            this.groupColor,
+            this.paletteBackgroundColor,
             this.frameColor.darker(50),
             this.frameColor.darker(50)
         ];
@@ -1223,7 +1251,7 @@ IDE_Morph.prototype.createCorralBar = function () {
     }
 
     this.corralBar = new Morph();
-    this.corralBar.color = this.frameColor;
+    this.corralBar.color = this.corralBarColor;
     this.corralBar.setHeight(this.logo.height()); // height is fixed
     this.add(this.corralBar);
 
@@ -1284,7 +1312,7 @@ IDE_Morph.prototype.createCorral = function () {
     }
 
     this.corral = new Morph();
-    this.corral.color = this.groupColor;
+    this.corral.color = this.paletteBackgroundColor;
     this.add(this.corral);
 
     this.corral.stageIcon = new SpriteIconMorph(this.stage);
@@ -5091,8 +5119,8 @@ SpriteIconMorph.prototype.init = function (aSprite, aTemplate) {
     if (!aTemplate) {
         colors = [
             IDE_Morph.prototype.groupColor,
-            IDE_Morph.prototype.frameColor,
-            IDE_Morph.prototype.frameColor
+            IDE_Morph.prototype.controlButtonColor,
+            IDE_Morph.prototype.categoryColor
         ];
 
     }
