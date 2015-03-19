@@ -180,7 +180,6 @@ SpriteMorph.prototype.blockColor = {
     other: new Color(150, 150, 150)
 };
 
-
 SpriteMorph.prototype.paletteColor = new Color(55, 55, 55);
 SpriteMorph.prototype.paletteTextColor = new Color(230, 230, 230);
 SpriteMorph.prototype.sliderColor
