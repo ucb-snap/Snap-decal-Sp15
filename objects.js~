@@ -3393,7 +3393,7 @@ SpriteMorph.prototype.silentGotoXY = function (x, y, justMe) {
     // move without drawing
     var penState = this.isDown;
     this.isDown = false;
-    this.gotoXY(-x, -y, justMe);
+    this.gotoXY(x, y, justMe);
     this.isDown = penState;
 };
 

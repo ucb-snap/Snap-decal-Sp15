@@ -1264,7 +1264,7 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
                     new Point() : this.embossing;
             part.drawNew();
             break;
-        case '%counterclockwise':
+        case '%clockwise':
             part = new SymbolMorph('turnRight');
             part.size = this.fontSize * 1.5;
             part.color = new Color(255, 255, 255);
@@ -1274,7 +1274,7 @@ SyntaxElementMorph.prototype.labelPart = function (spec) {
                     new Point() : this.embossing;
             part.drawNew();
             break;
-        case '%clockwise':
+        case '%counterclockwise':
             part = new SymbolMorph('turnLeft');
             part.size = this.fontSize * 1.5;
             part.color = new Color(255, 255, 255);
