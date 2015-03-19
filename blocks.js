@@ -2082,6 +2082,18 @@ BlockMorph.prototype.userMenu = function () {
         "help...",
         'showHelp'
     );
+    menu.addItem(
+        "color...",
+        function () {
+            this.pickColor(
+                menu.title + '\ncolor:',
+                this.setColor,
+                this,
+                this.color
+            );
+        },
+        'choose the World\'s\nbackground color'
+    );
     if (shiftClicked) {
         top = this.topBlock();
         if (top instanceof ReporterBlockMorph) {
