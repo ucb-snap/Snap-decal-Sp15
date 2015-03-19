@@ -169,26 +169,26 @@ SpriteMorph.prototype.categories =
 
 SpriteMorph.prototype.blockColor = {
     motion : new Color(255-74, 255-108, 255-212),
-    looks : new Color(143, 86, 227),
-    sound : new Color(207, 74, 217),
-    pen : new Color(0, 161, 120),
-    control : new Color(230, 168, 34),
-    sensing : new Color(4, 148, 220),
-    operators : new Color(98, 194, 19),
-    variables : new Color(243, 118, 29),
-    lists : new Color(217, 77, 17),
-    other: new Color(150, 150, 150)
+    looks : new Color(255-143, 255-86, 255-227),
+    sound : new Color(255-207, 255-74, 255-217),
+    pen : new Color(255-0, 255-161, 255-120),
+    control : new Color(255-230, 255-168, 255-34),
+    sensing : new Color(255-4, 255-148, 255-220),
+    operators : new Color(255-98, 255-194, 255-19),
+    variables : new Color(255-243, 255-118, 255-29),
+    lists : new Color(255-217, 255-77, 255-17),
+    other: new Color(255-150, 255-150, 255-150)
 };
 
 SpriteMorph.prototype.paletteColor = new Color(55, 55, 55);
-SpriteMorph.prototype.paletteTextColor = new Color(230, 230, 230);
+SpriteMorph.prototype.paletteTextColor = new Color(255-230, 230, 255-230);
 SpriteMorph.prototype.sliderColor
     = SpriteMorph.prototype.paletteColor.lighter(30);
 SpriteMorph.prototype.isCachingPrimitives = true;
 
 SpriteMorph.prototype.enableNesting = true;
 SpriteMorph.prototype.useFlatLineEnds = false;
-SpriteMorph.prototype.highlightColor = new Color(250, 200, 130);
+SpriteMorph.prototype.highlightColor = new Color(250, 255-200, 130);
 SpriteMorph.prototype.highlightBorder = 8;
 
 SpriteMorph.prototype.bubbleColor = new Color(255, 255, 255);
