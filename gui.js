@@ -463,6 +463,8 @@ IDE_Morph.prototype.createControlBar = function () {
         stageSizeButton,
         appModeButton,
         cloudButton,
+        saveButton, // created  new button
+        importButton, // created new button
         x,
         colors = [
             this.groupColor,
@@ -672,6 +674,54 @@ IDE_Morph.prototype.createControlBar = function () {
     this.controlBar.add(settingsButton);
     this.controlBar.settingsButton = settingsButton; // for menu positioning
 
+
+    // the creation of the new buttons
+    //saveButton
+    button = new PushButtonMorph(
+        this,
+        'saveButtonMenu',
+        new SymbolMorph('flash', 14)
+    );
+    button.corner = 12;
+    button.color = new Color(39, 133, 206);
+    button.highlightColor = new Color(22, 75, 116);
+    button.pressColor = new Color(22, 75, 116); //colors[2];
+    button.labelMinExtent = new Point(36, 18);
+    button.padding = 0;
+    button.labelShadowOffset = new Point(-1, -1);
+    button.labelShadowColor = colors[1];
+    button.labelColor = this.buttonLabelColor;
+    button.contrast = this.buttonContrast;
+    button.drawNew();
+    button.hint = 'File operations';
+    button.fixLayout();
+    saveButton = button;
+    this.controlBar.add(saveButton);
+    this.controlBar.saveButton = saveButton;
+
+    //importButton
+    button = new PushButtonMorph(
+        this,
+        'importButtonMenu',
+        new SymbolMorph('crosshairs', 14)
+    );
+    button.corner = 12;
+    button.color = new Color(49, 206, 145);
+    button.highlightColor = new Color(28, 116, 82);
+    button.pressColor = new Color(28, 116, 82);
+    button.labelMinExtent = new Point(36, 18);
+    button.padding = 0;
+    button.labelShadowOffset = new Point(-1, -1);
+    button.labelShadowColor = colors[1];
+    button.labelColor = this.buttonLabelColor;
+    button.contrast = this.buttonContrast;
+    button.drawNew();
+    button.hint = 'Importing operations';
+    button.fixLayout();
+    importButton = button;
+    this.controlBar.add(importButton);
+    this.controlBar.importButton = importButton;
+
     // cloudButton
     button = new PushButtonMorph(
         this,
@@ -728,6 +778,13 @@ IDE_Morph.prototype.createControlBar = function () {
 
         projectButton.setCenter(myself.controlBar.center());
         projectButton.setRight(cloudButton.left() - padding);
+
+        //positioning of the buttons on the control bar
+        saveButton.setCenter(myself.controlBar.center());
+        saveButton.setLeft(settingsButton.left() + 300);
+
+        importButton.setCenter(myself.controlBar.center());
+        importButton.setLeft(saveButton.right() + padding);
 
         this.updateLabel();
     };
@@ -2069,6 +2126,110 @@ IDE_Morph.prototype.cloudMenu = function () {
     }
     menu.popup(world, pos);
 };
+
+
+//This is the drop-down menu that happens after clicking the button.
+IDE_Morph.prototype.saveButtonMenu = function () {
+    var menu,
+        world = this.world(),
+        pos = this.controlBar.saveButton.bottomLeft(),
+        shiftClicked = (world.currentKey === 16);
+
+    menu = new MenuMorph(this);
+    menu.addItem('New', 'createNewProject');
+    menu.addItem('Open...', 'openProjectsBrowser');
+    menu.addItem('Save', "save");
+    if (shiftClicked) {
+        menu.addItem(
+            'Save to disk',
+            'saveProjectToDisk',
+            'experimental - store this project\nin your downloads folder',
+            new Color(100, 0, 0)
+        );
+    }
+    menu.addItem('Save As...', 'saveProjectsBrowser');
+
+    menu.popup(world, pos);
+};
+
+IDE_Morph.prototype.importButtonMenu = function () {
+    var menu,
+        myself = this,
+        world = this.world(),
+        pos = this.controlBar.importButton.bottomLeft(),
+        shiftClicked = (world.currentKey === 16);
+
+    menu = new MenuMorph(this);
+
+    menu.addItem(
+        'Import...',
+        function () {
+            var inp = document.createElement('input');
+            if (myself.filePicker) {
+                document.body.removeChild(myself.filePicker);
+                myself.filePicker = null;
+            }
+            inp.type = 'file';
+            inp.style.color = "transparent";
+            inp.style.backgroundColor = "transparent";
+            inp.style.border = "none";
+            inp.style.outline = "none";
+            inp.style.position = "absolute";
+            inp.style.top = "0px";
+            inp.style.left = "0px";
+            inp.style.width = "0px";
+            inp.style.height = "0px";
+            inp.addEventListener(
+                "change",
+                function () {
+                    document.body.removeChild(inp);
+                    myself.filePicker = null;
+                    world.hand.processDrop(inp.files);
+                },
+                false
+            );
+            document.body.appendChild(inp);
+            myself.filePicker = inp;
+            inp.click();
+        },
+        'file menu import hint' // looks up the actual text in the translator
+    );
+
+    menu.addItem(
+        shiftClicked ?
+                'Export project as plain text...' : 'Export project...',
+        function () {
+            if (myself.projectName) {
+                myself.exportProject(myself.projectName, shiftClicked);
+            } else {
+                myself.prompt('Export Project As...', function (name) {
+                    myself.exportProject(name);
+                }, null, 'exportProject');
+            }
+        },
+        'show project data as XML\nin a new browser window',
+        shiftClicked ? new Color(100, 0, 0) : null
+    );
+
+    menu.addItem(
+        'Export blocks...',
+        function () {myself.exportGlobalBlocks(); },
+        'show global custom block definitions as XML\nin a new browser window'
+    );
+
+    if (shiftClicked) {
+        menu.addItem(
+            'Export all scripts as pic...',
+            function () {myself.exportScriptsPicture(); },
+            'show a picture of all scripts\nand block definitions',
+            new Color(100, 0, 0)
+        );
+    }
+
+
+    menu.popup(world, pos);
+};
+
 
 IDE_Morph.prototype.settingsMenu = function () {
     var menu,
