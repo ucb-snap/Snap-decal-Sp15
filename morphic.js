@@ -6881,10 +6881,10 @@ MenuMorph.prototype.adjustWidths = function () {
         } else {
             item.drawNew();
             if (item === myself.label) {
+                item.silentSetWidth(item.center().subtract(-500));
+                item.silentSetExtent(item.center().subtract(-500));
                 item.text.setPosition(
-                    item.center().subtract(
-                        item.text.extent().floorDivideBy(2)
-                    )
+                    item.center().subtract(-500)
                 );
             }
         }
