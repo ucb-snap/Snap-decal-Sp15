@@ -3336,7 +3336,6 @@ Morph.prototype.inspect = function (anotherObject) {
 
 Morph.prototype.contextMenu = function () {
     var world;
-
     if (this.customContextMenu) {
         return this.customContextMenu;
     }
@@ -3349,13 +3348,18 @@ Morph.prototype.contextMenu = function () {
     }
     return this.userMenu() ||
         (this.parent && this.parent.userMenu());
+    menu.addItem(
+        "resize...",
+        'resize',
+        'show a handle\nwhich can be dragged\nto change this morph\'s' +
+            ' extent'
+    );
 };
 
 Morph.prototype.hierarchyMenu = function () {
     var parents = this.allParents(),
         world = this.world instanceof Function ? this.world() : this.world,
         menu = new MenuMorph(this, null);
-
     parents.forEach(function (each) {
         if (each.developersMenu && (each !== world)) {
             menu.addItem(each.toString().slice(0, 50), function () {
@@ -3363,6 +3367,12 @@ Morph.prototype.hierarchyMenu = function () {
             });
         }
     });
+    menu.addItem(
+        "resize...",
+        'resize',
+        'show a handle\nwhich can be dragged\nto change this morph\'s' +
+            ' extent'
+    );
     return menu;
 };
 

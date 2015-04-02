@@ -4364,6 +4364,9 @@ StageMorph.prototype.setScale = function (number) {
     });
     Morph.prototype.trackChanges = oldFlag;
     this.changed();
+    
+    
+
 };
 
 // StageMorph rendering
@@ -5298,8 +5301,14 @@ StageMorph.prototype.userMenu = function () {
         // menu.addItem('help', 'nop');
         return menu;
     }
+    menu.addItem(
+        "resize...",
+        'resize',
+        'show a handle\nwhich can be dragged\nto change this morph\'s' +
+            ' extent'
+    );
     menu.addItem("edit", 'edit');
-    menu.addItem("show all", 'showAll');
+
     menu.addItem(
         "pic...",
         function () {

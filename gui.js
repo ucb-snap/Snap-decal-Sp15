@@ -3365,7 +3365,6 @@ IDE_Morph.prototype.toggleStageSize = function (isSmall) {
     function toggle() {
         myself.isSmallStage = isNil(isSmall) ? !myself.isSmallStage : isSmall;
     }
-
     function zoomIn() {
         myself.step = function () {
             myself.stageRatio -= (myself.stageRatio - smallRatio) / 2;
