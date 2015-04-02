@@ -3632,7 +3632,7 @@ IDE_Morph.prototype.userSetClickSound = function () {
         world = this.world(),
         pos = this.controlBar.settingsButton.bottomLeft(),
         myself = this;
-	var soundList = ["Sounds/Click.wav","Sounds/Chord.wav","Sounds/Dog1.wav","Sounds/Dog2.wav"];
+	var soundList = ["click.wav","Sounds/Chord.wav","Sounds/Dog1.wav","Sounds/Dog2.wav","Sounds/FingerSnap.wav"];
 	soundList.forEach(
 		function(soundChoice) { 
 			menu.addItem(
