@@ -3,6 +3,9 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Snap! Build Your Own Blocks. Beta</title>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 		<link rel="shortcut icon" href="favicon.ico">
 		<script type="text/javascript" src="morphic.js"></script>
 		<script type="text/javascript" src="widgets.js"></script>
@@ -27,11 +30,20 @@
 				setInterval(loop, 1);
 			};
 			function loop() {
+				// $('#player').remove();
 				world.doOneCycle();
+				// $('body').append;
 			}
+			
 		</script>
 	</head>
 	<body style="margin: 0;">
-		<canvas id="world" tabindex="1" style="position: absolute;" />
+<!-- 		<div id="player"><div style="z-index: 99; position: fixed; left: 300px; top: 300px; height: 300px; width: 300px; background-color: #FFFFFF"></div></div>
+ -->		<div id="player" style="position: fixed; z-index: 99; width: 480px; height: 364px; left: calc(100% - 480px);top: 32px;">
+  			<iframe frameborder="0" height="100%" width="100%" src="https://youtube.com/embed/0RpdPzJgaBw?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1">
+  			</iframe>
+		</div>
+		<canvas id="world" tabindex="1" style="position: absolute; z-index: -99" />
+
 	</body>
 </html>
