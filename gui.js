@@ -2737,8 +2737,6 @@ IDE_Morph.prototype.newProject = function () {
 };
 
 
-setInterval(IDE_Morph.prototype.save(), 5000);
-
 IDE_Morph.prototype.save = function () {
     if (this.source === 'examples') {
         this.source = 'local'; // cannot save to examples
