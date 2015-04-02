@@ -1900,13 +1900,14 @@ BlockMorph.prototype.zebraContrast = 40; // alternating color brightness
 // BlockMorph sound feedback:
 
 BlockMorph.prototype.snapSound = null;
+BlockMorph.prototype.defaultClickSound = "click.wav";
 
 BlockMorph.prototype.toggleSnapSound = function () {
     if (this.snapSound !== null) {
         this.snapSound = null;
     } else {
         BlockMorph.prototype.snapSound = document.createElement('audio');
-        BlockMorph.prototype.snapSound.src = 'click.wav';
+        BlockMorph.prototype.snapSound.src = BlockMorph.prototype.defaultClickSound;
     }
     CommentMorph.prototype.snapSound = BlockMorph.prototype.snapSound;
 };

@@ -2101,6 +2101,10 @@ IDE_Morph.prototype.settingsMenu = function () {
         'Stage size...',
         'userSetStageSize'
     );
+    menu.addItem(
+	'Set sound...',
+	'userSetClickSound'
+    );
     menu.addLine();
     addPreference(
         'Blurred shadows',
@@ -3621,6 +3625,26 @@ IDE_Morph.prototype.userSetStageSize = function () {
         null, // pic
         null // msg
     );
+};
+
+IDE_Morph.prototype.userSetClickSound = function () {
+    var menu = new MenuMorph(this),
+        world = this.world(),
+        pos = this.controlBar.settingsButton.bottomLeft(),
+        myself = this;
+	var soundList = ["Sounds/Click.wav","Sounds/Chord.wav","Sounds/Dog1.wav","Sounds/Dog2.wav"];
+	soundList.forEach(
+		function(soundChoice) { 
+			menu.addItem(
+				(BlockMorph.prototype.defaultClickSound === soundChoice ? '\u2713 ' : '    ')
+				+soundChoice, 
+				function() {
+					BlockMorph.prototype.defaultClickSound = soundChoice; 
+					BlockMorph.prototype.toggleSnapSound(); 
+					BlockMorph.prototype.toggleSnapSound(); 
+				})
+	       });
+    menu.popup(world, pos);
 };
 
 IDE_Morph.prototype.setStageExtent = function (aPoint) {
