@@ -1045,12 +1045,17 @@ IDE_Morph.prototype.createSpriteBar = function () {
     };
     this.spriteBar.reactToEdit = nameField.accept;
 
-    videoField = new InputFieldMorph("Video?");
-    videoField.setWidth(100); // fixed dimensions
+    videoField = new InputFieldMorph("Youtube Link");
+    videoField.setWidth(250); // fixed dimensions
     videoField.contrast = 90;
     videoField.setPosition(thumbnail.topRight().add(new Point(130, 3)));
     this.spriteBar.add(videoField);
     videoField.drawNew();
+
+    videoField.accept = function () {
+        var newName = videoField.getValue();
+        updateVideo(newName); 
+    };
 
     // padlock
     padlock = new ToggleMorph(

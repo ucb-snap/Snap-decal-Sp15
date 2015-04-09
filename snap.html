@@ -5,6 +5,16 @@
 		<title>Snap! Build Your Own Blocks. Beta</title>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript">
+		function updateVideo(link) {
+			// var link;
+			// link = window.prompt("Youtube URL?", "https://www.youtube.com/watch?v=0RpdPzJgaBw")
+			var start = link.indexOf("watch?v=") + 8;
+			var youtubeID = link.substring(start, start + 11);
+			$('#frame').remove();
+			$('<iframe id="frame" frameborder="0" height="100%" width="100%">').attr('src', "https://youtube.com/embed/" + youtubeID + "?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1").appendTo('#player');
+			}
+		</script>
 
 		<link rel="shortcut icon" href="favicon.ico">
 		<script type="text/javascript" src="morphic.js"></script>
@@ -41,15 +51,15 @@
 				world.doOneCycle();
 				// $('body').prepend('<div id="player" style="position: fixed; z-index: 99; width: 480px; height: 364px; left: calc(100% - 480px);top: 32px;"><iframe frameborder="0" height="100%" width="100%" src="https://youtube.com/embed/0RpdPzJgaBw?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1"></iframe></div>');
 			}
-			
-			function updateVideo(link) {
-					// var link;
-					// link = window.prompt("Youtube URL?", "https://www.youtube.com/watch?v=0RpdPzJgaBw")
-				var start = link.indexOf("watch?v=") + 8;
-				var youtubeID = link.substring(start, start + 11);
-				$('#frame').remove();
-				$('<iframe id="frame" frameborder="0" height="100%" width="100%">').attr('src', "https://youtube.com/embed/" + youtubeID + "?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1").appendTo('#player');
-			}
+
+			// function updateVideo(link) {
+			// 		// var link;
+			// 		// link = window.prompt("Youtube URL?", "https://www.youtube.com/watch?v=0RpdPzJgaBw")
+			// 	var start = link.indexOf("watch?v=") + 8;
+			// 	var youtubeID = link.substring(start, start + 11);
+			// 	$('#frame').remove();
+			// 	$('<iframe id="frame" frameborder="0" height="100%" width="100%">').attr('src', "https://youtube.com/embed/" + youtubeID + "?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1").appendTo('#player');
+			// }
 			
 		</script>
 	</head>
