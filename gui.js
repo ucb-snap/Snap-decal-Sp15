@@ -1045,6 +1045,13 @@ IDE_Morph.prototype.createSpriteBar = function () {
     };
     this.spriteBar.reactToEdit = nameField.accept;
 
+    videoField = new InputFieldMorph("Video?");
+    videoField.setWidth(100); // fixed dimensions
+    videoField.contrast = 90;
+    videoField.setPosition(thumbnail.topRight().add(new Point(130, 3)));
+    this.spriteBar.add(videoField);
+    videoField.drawNew();
+
     // padlock
     padlock = new ToggleMorph(
         'checkbox',
