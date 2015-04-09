@@ -86,6 +86,8 @@ var JukeboxMorph;
 
 // I am SNAP's top-level frame, the Editor window
 
+
+
 // IDE_Morph inherits from Morph:
 
 IDE_Morph.prototype = new Morph();
@@ -2736,10 +2738,12 @@ IDE_Morph.prototype.newProject = function () {
     this.fixLayout();
 };
 
+
 IDE_Morph.prototype.save = function () {
     if (this.source === 'examples') {
         this.source = 'local'; // cannot save to examples
     }
+    
     if (this.projectName) {
         if (this.source === 'local') { // as well as 'examples'
             this.saveProject(this.projectName);
@@ -2751,6 +2755,7 @@ IDE_Morph.prototype.save = function () {
     }
 };
 
+window.setInterval()
 
 IDE_Morph.prototype.saveProject = function (name) {
     var myself = this;
@@ -2764,10 +2769,12 @@ IDE_Morph.prototype.saveProject = function (name) {
     ]);
 };
 
+
 IDE_Morph.prototype.rawSaveProject = function (name) {
     var str;
     if (name) {
         this.setProjectName(name);
+        alert(this.projectName);
         if (Process.prototype.isCatchingErrors) {
             try {
                 localStorage['-snap-project-' + name]
@@ -2785,6 +2792,7 @@ IDE_Morph.prototype.rawSaveProject = function (name) {
         }
     }
 };
+
 
 IDE_Morph.prototype.saveProjectToDisk = function () {
     var data,
@@ -2810,6 +2818,10 @@ IDE_Morph.prototype.saveProjectToDisk = function () {
         document.body.removeChild(link);
     }
 };
+
+// Autosave
+
+
 
 IDE_Morph.prototype.exportProject = function (name, plain) {
     var menu, str;
@@ -3428,6 +3440,7 @@ IDE_Morph.prototype.openProjectsBrowser = function () {
 };
 
 IDE_Morph.prototype.saveProjectsBrowser = function () {
+    alert("inside saveProjectsBrowser");
     if (this.source === 'examples') {
         this.source = 'local'; // cannot save to examples
     }
@@ -6355,3 +6368,4 @@ JukeboxMorph.prototype.reactToDropOf = function (icon) {
     this.sprite.sounds.add(costume, idx);
     this.updateList();
 };
+

@@ -211,7 +211,8 @@ SpriteMorph.prototype.initBlocks = function () {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'Go Giants!!'
+            spec: 'Move %n Steps',
+            defaults: [100]
         },
         turn: {
             only: SpriteMorph,
