@@ -4718,6 +4718,20 @@ StageMorph.prototype.processKeyEvent = function (event, action) {
     case 40:
         keyName = 'down arrow';
         break;
+    case 9:
+        if (event.altKey){
+            keyName = 'alt tab'
+        }
+        break;
+    case 49:
+        keyName = 'scripts 1';
+        break;
+    case 50:
+        keyName = 'costumes 2';
+        break;
+    case 51:
+        keyName = 'sounds 3';
+        break;
     default:
         keyName = String.fromCharCode(event.keyCode || event.charCode);
         if (event.ctrlKey || event.metaKey) {
@@ -4732,7 +4746,8 @@ StageMorph.prototype.fireKeyEvent = function (key) {
         hats = [],
         procs = [],
         ide = this.parentThatIsA(IDE_Morph),
-        myself = this;
+        myself = this,
+        index = ide.category_index;
 
     this.keysPressed[evt] = true;
     if (evt === 'ctrl enter') {
@@ -4760,6 +4775,32 @@ StageMorph.prototype.fireKeyEvent = function (key) {
     }
     if (evt === 'esc') {
         return this.fireStopAllEvent();
+    }
+    // project additions12
+    if (evt === 'alt tab'){
+        ide.category_index = index + 1;
+        if(ide.category_index === 8){
+            ide.category_index = 0;
+        }
+        ide.categories.children[index].action();
+    }
+    if (evt === 'scripts 1'){
+        if (ide.currentTab != 'scripts'){
+            ide.spriteBar.tabBar.tabTo('scripts');
+            ide.currentTab = 'scripts';
+        }
+    }
+    if (evt === 'costumes 2'){
+        if(ide.currentTab != 'costumes'){
+            ide.spriteBar.tabBar.tabTo('costumes');
+            ide.currentTab = 'costumes';
+        }
+    }
+    if (evt === 'sounds 3'){
+        if (ide.currentTab != 'sounds'){
+            ide.spriteBar.tabBar.tabTo('sounds');
+            ide.currentTab = 'sounds';
+        }
     }
     this.children.concat(this).forEach(function (morph) {
         if (morph instanceof SpriteMorph || morph instanceof StageMorph) {

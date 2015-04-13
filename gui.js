@@ -193,6 +193,9 @@ IDE_Morph.prototype.init = function (isAutoFill) {
     this.source = 'local';
     this.serializer = new SnapSerializer();
 
+    //project additions
+    this.category_index = 0;
+
     this.globalVariables = new VariableFrame();
     this.currentSprite = new SpriteMorph(this.globalVariables);
     this.sprites = new List([this.currentSprite]);
