@@ -870,9 +870,9 @@ SpriteMorph.prototype.initBlocks = function () {
             defaults: ['snap.berkeley.edu']
         },
         reportVideo: {
-            type: 'reporter',
+            type: 'command',
             category: 'sensing',
-            spec: 'http:// %s',
+            spec: 'Link: %s',
             defaults: ['youtube.com']
         },
         reportIsFastTracking: {
@@ -1197,10 +1197,10 @@ SpriteMorph.prototype.initBlocks = function () {
 };
 
 SpriteMorph.prototype.initBlocks();
-for (var key in SpriteMorph.prototype.blocks) {
-    // console.log(SpriteMorph.prototype.blocks[key].spec + " $");
-    SpriteMorph.prototype.blocks[key].spec = "( ͡° ͜ʖ ͡°) " + SpriteMorph.prototype.blocks[key].spec +  " ( ͡° ͜ʖ ͡°)";
-}
+// for (var key in SpriteMorph.prototype.blocks) {
+//     // console.log(SpriteMorph.prototype.blocks[key].spec + " $");
+//     SpriteMorph.prototype.blocks[key].spec = "( ͡° ͜ʖ ͡°) " + SpriteMorph.prototype.blocks[key].spec +  " ( ͡° ͜ʖ ͡°)";
+// }
 
 SpriteMorph.prototype.initBlockMigrations = function () {
     SpriteMorph.prototype.blockMigrations = {

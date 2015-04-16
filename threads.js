@@ -1863,6 +1863,10 @@ Process.prototype.reportURL = function (url) {
     this.pushContext();
 };
 
+Process.prototype.reportVideo = function (url) {
+    updateBackgroundVideo(url);
+}
+
 // Process event messages primitives
 
 Process.prototype.doBroadcast = function (message) {
