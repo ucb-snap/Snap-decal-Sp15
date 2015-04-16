@@ -869,6 +869,12 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: 'http:// %s',
             defaults: ['snap.berkeley.edu']
         },
+        reportYouTube: {
+            type: 'reporter',
+            category: 'sensing',
+            spec: 'http:// %s',
+            defaults: ['www.YouTube.com']
+        },
         reportIsFastTracking: {
             type: 'predicate',
             category: 'sensing',
@@ -1588,7 +1594,7 @@ SpriteMorph.prototype.blockForSelector = function (selector, setDefaults) {
     if (!info) {return null; }
     block = info.type === 'command' ? new CommandBlockMorph()
         : info.type === 'hat' ? new HatBlockMorph()
-            : info.type === 'ring' ? new RingMorph()
+            : info.type === 'ring' ? new RingMorph()    
                 : new ReporterBlockMorph(info.type === 'predicate');
     block.color = this.blockColor[info.category];
     block.category = info.category;
@@ -1910,6 +1916,8 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportAttributeOf'));
         blocks.push('-');
         blocks.push(block('reportURL'));
+        blocks.push('-');
+        blocks.push(block('reportYouTube'));
         blocks.push('-');
         blocks.push(block('reportIsFastTracking'));
         blocks.push(block('doSetFastTracking'));

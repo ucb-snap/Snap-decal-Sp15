@@ -6,27 +6,12 @@
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<script type="text/javascript">
-		/*
-		 * link: A youtube link preferably formatted in the normal way
-		 * removes current iframe and re-appends it to containing div with new video (since you can't live update an iframe youtube src)
-		 * returns nothing
-		 */
-		function updateBackgroundVideo(link) {
+		function updateVideo(link) {
 			var start = link.indexOf("watch?v=") + 8;
 			var youtubeID = link.substring(start, start + 11);
 			$('#frame').remove();
-			$('<iframe id="frame" frameborder="0" height="100%" width="100%">').attr('src', "https://youtube.com/embed/" + youtubeID + "?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1;enablejsapi=1;wmode=transparent").appendTo('#player');
-		}
-
-		function toggleBackgroundVideo() {
-			if($('#frame').is(':visible')) {
-            	document.getElementById('frame').contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-            	$('#frame').hide()
-			} else {
-				document.getElementById('frame').contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-				$('#frame').show();
+			$('<iframe id="frame" frameborder="0" height="100%" width="100%">').attr('src', "https://youtube.com/embed/" + youtubeID + "?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1").appendTo('#player');
 			}
-		}
 		</script>
 
 		<link rel="shortcut icon" href="favicon.ico">
@@ -61,7 +46,7 @@
 	</head>
 	<body style="margin: 0;">
 		<div id="player" style="position: fixed; z-index: 99; width: 480px; height: 364px; left: calc(100% - 480px);top: 32px;">
-  			<iframe id="frame" frameborder="0" height="100%" width="100%" style="opacity=0.5" allowtransparency="true">
+  			<iframe id="frame" frameborder="0" height="100%" width="100%">
   			</iframe>
 		</div>
 		<canvas id="world" tabindex="1" style="position: absolute; z-index: -99" />

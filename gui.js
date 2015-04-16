@@ -1045,10 +1045,8 @@ IDE_Morph.prototype.createSpriteBar = function () {
     };
     this.spriteBar.reactToEdit = nameField.accept;
 
-    // Field for youtube link entry
-    // Video is set on press of enter key
     videoField = new InputFieldMorph("Youtube Link");
-    videoField.setWidth(250);
+    videoField.setWidth(250); // fixed dimensions
     videoField.contrast = 90;
     videoField.setPosition(thumbnail.topRight().add(new Point(130, 3)));
     this.spriteBar.add(videoField);
@@ -1056,40 +1054,8 @@ IDE_Morph.prototype.createSpriteBar = function () {
 
     videoField.accept = function () {
         var newName = videoField.getValue();
-        updateBackgroundVideo(newName); 
+        updateVideo(newName); 
     };
-
-    // to show or not to show the video background
-    showVideo = new ToggleMorph(
-        'checkbox',
-        null,
-        function () {
-            toggleBackgroundVideo();
-        },
-        localize('show video background'),
-        function () {
-            return;
-        }
-    );
-    showVideo.label.isBold = false;
-    showVideo.label.setColor(this.buttonLabelColor);
-    showVideo.color = tabColors[2];
-    showVideo.highlightColor = tabColors[0];
-    showVideo.pressColor = tabColors[1];
-
-    showVideo.tick.shadowOffset = MorphicPreferences.isFlat ?
-            new Point() : new Point(-1, -1);
-    showVideo.tick.shadowColor = new Color(); // black
-    showVideo.tick.color = this.buttonLabelColor;
-    showVideo.tick.isBold = false;
-    showVideo.tick.drawNew();
-
-    showVideo.setPosition(videoField.bottomLeft().add(2));
-    showVideo.drawNew();
-    this.spriteBar.add(showVideo);
-    if (this.currentSprite instanceof StageMorph) {
-        showVideo.hide();
-    }
 
     // padlock
     padlock = new ToggleMorph(
