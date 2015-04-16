@@ -1865,7 +1865,11 @@ Process.prototype.reportURL = function (url) {
 
 Process.prototype.reportVideo = function (url, startMin, startSec, stopMin, stopSec) {
     updateBackgroundVideo(url, startMin, startSec, stopMin, stopSec);
-    doWait(stopMin * 60 + stopSec - (startMin * 60 - startSec));
+    diff = Number(stopMin) * 60 + Number(stopSec) - (Number(startMin) * 60 + Number(startSec));
+    setTimeout(function() {
+        $('#frame').hide();
+    }, diff * 1000);
+    this.doWait(diff);
 }
 
 // Process event messages primitives

@@ -872,7 +872,7 @@ SpriteMorph.prototype.initBlocks = function () {
         reportVideo: {
             type: 'command',
             category: 'sensing',
-            spec: 'Link: %s Start Min.: %s Start Sec.: %s End Min.: %s End Sec.: %s',
+            spec: 'youtube URL: %s start: %s m %s s, end %s m %s s',
             defaults: ['youtube.com']
         },
         reportIsFastTracking: {

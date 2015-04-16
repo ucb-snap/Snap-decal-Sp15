@@ -20,18 +20,19 @@
 			if(startMin === undefined) {
 				params = defaultParams
 			} else {
-				start = 60 + startSec;
-				stop = stopMin * 60 + stopSec;
-				params += ";start=" + start + "&end=" + stop
+				start = Number(startMin) * 60 + Number(startSec);
+				stop = Number(stopMin) * 60 + Number(stopSec);
+				params = defaultParams + ";start=" + start + ";end=" + stop
 			}
 			$('#frame').remove();
 			$('<iframe id="frame" frameborder="0" height="100%" width="100%">').attr('src', "https://youtube.com/embed/" + youtubeID + params).appendTo('#player');
+			$('#frame').show();
 		}
 
 		function toggleBackgroundVideo() {
 			if($('#frame').is(':visible')) {
             	document.getElementById('frame').contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-            	$('#frame').hide()
+            	$('#frame').hide();
 			} else {
 				document.getElementById('frame').contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
 				$('#frame').show();
