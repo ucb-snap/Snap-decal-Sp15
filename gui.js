@@ -2092,7 +2092,9 @@ IDE_Morph.prototype.settingsMenu = function () {
     }
 
     menu = new MenuMorph(this);
+    
     menu.addItem('Language...', 'languageMenu');
+
     menu.addItem(
         'Zoom blocks...',
         'userSetBlocksScale'
@@ -2225,6 +2227,7 @@ IDE_Morph.prototype.settingsMenu = function () {
         'check for alternative\nGUI design',
         false
     );
+
     addPreference(
         'Sprite Nesting',
         function () {
