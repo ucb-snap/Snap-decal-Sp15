@@ -40,9 +40,10 @@
 			if (annyang) {
 			  // Let's define our first command. First the text we expect, and then the function it should call
 			  var commands = {
-			    'play': function() {
-			    	audio.play();
-			    }
+			    'start': IDE_Morph.prototype.pressStart,
+			    'save': IDE_Morph.prototype.save,
+			    'language': IDE_Morph.prototype.languageMenu,
+			    'flat': IDE_Morph.prototype.setFlatDesign
 			  };
 
 			  // Add our commands to annyang
