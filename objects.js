@@ -207,7 +207,7 @@ SpriteMorph.prototype.initBlocks = function () {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'youtube link %s',
+            spec: 'move %n steps',
             defaults: [10]
         },
         turn: {
@@ -872,7 +872,7 @@ SpriteMorph.prototype.initBlocks = function () {
         reportVideo: {
             type: 'command',
             category: 'sensing',
-            spec: 'Link: %s',
+            spec: 'Link: %s Start Min.: %s Start Sec.: %s End Min.: %s End Sec.: %s',
             defaults: ['youtube.com']
         },
         reportIsFastTracking: {
@@ -1916,6 +1916,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportAttributeOf'));
         blocks.push('-');
         blocks.push(block('reportURL'));
+        blocks.push('-');
         blocks.push(block('reportVideo'));
         blocks.push('-');
         blocks.push(block('reportIsFastTracking'));
@@ -5075,6 +5076,7 @@ StageMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportAttributeOf'));
         blocks.push('-');
         blocks.push(block('reportURL'));
+        blocks.push('-');
         blocks.push(block('reportVideo'));
         blocks.push('-');
         blocks.push(block('reportIsFastTracking'));
