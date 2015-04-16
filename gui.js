@@ -193,8 +193,23 @@ IDE_Morph.prototype.init = function (isAutoFill) {
     this.source = 'local';
     this.serializer = new SnapSerializer();
 
-    //project additions
+    // project additions Tinh Nguyen
     this.category_index = 0;
+    this.current_block_selection = -1;  // starts highlighting nothing
+
+    // setting up original colors Tinh Nguyen
+    this.original_colors = {
+        'motion': new Color(74, 108, 212, 1),
+        'control': new Color(230, 168, 34, 1),
+        'looks': new Color(143,86,227,1),
+        'sensing': new Color(4, 148, 220, 1),
+        'sound': new Color(207, 74, 217, 1),
+        'operators': new Color(150, 150, 150, 1),
+        'pen': new Color(0, 161, 120, 1),
+        'variables': new Color(243, 118, 29, 1)
+    };
+
+    // end project additions
 
     this.globalVariables = new VariableFrame();
     this.currentSprite = new SpriteMorph(this.globalVariables);
@@ -793,6 +808,9 @@ IDE_Morph.prototype.createCategories = function () {
                     each.refresh();
                 });
                 myself.refreshPalette(true);
+
+                //project addition, 
+                this.current_block_selection = -1;
             },
             category[0].toUpperCase().concat(category.slice(1)), // label
             function () {  // query
@@ -855,6 +873,8 @@ IDE_Morph.prototype.createCategories = function () {
     });
     fixCategoriesLayout();
     this.add(this.categories);
+
+
 };
 
 IDE_Morph.prototype.createPalette = function (forSearching) {

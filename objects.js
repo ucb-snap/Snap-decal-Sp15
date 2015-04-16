@@ -4718,17 +4718,21 @@ StageMorph.prototype.processKeyEvent = function (event, action) {
     case 40:
         keyName = 'down arrow';
         break;
+    // project additions Tinh Nguyen
     case 9:
         if (event.altKey){
             keyName = 'alt tab'
         }
         break;
+    // Num 1
     case 49:
         keyName = 'scripts 1';
         break;
+    // Num 2
     case 50:
         keyName = 'costumes 2';
         break;
+    // Num 3
     case 51:
         keyName = 'sounds 3';
         break;
@@ -4776,13 +4780,14 @@ StageMorph.prototype.fireKeyEvent = function (key) {
     if (evt === 'esc') {
         return this.fireStopAllEvent();
     }
-    // project additions12
+    // project additions Tinh Nguyen
     if (evt === 'alt tab'){
         ide.category_index = index + 1;
         if(ide.category_index === 8){
             ide.category_index = 0;
         }
-        ide.categories.children[index].action();
+        ide.current_block_selection = -1;
+        ide.categories.children[ide.category_index].action();
     }
     if (evt === 'scripts 1'){
         if (ide.currentTab != 'scripts'){
@@ -4800,6 +4805,38 @@ StageMorph.prototype.fireKeyEvent = function (key) {
         if (ide.currentTab != 'sounds'){
             ide.spriteBar.tabBar.tabTo('sounds');
             ide.currentTab = 'sounds';
+        }
+    }
+    if (evt === 'down arrow'){
+
+        children = ide.palette.contents.children;
+        ide.current_block_selection += 1;
+
+        if (ide.current_block_selection >= 0 || ide.current_block_selection < children.length){
+            color = ide.original_colors[ide.currentCategory];
+            children[ide.current_block_selection].setColor(new Color(221,255,174,255));
+            if (ide.current_block_selection != 0){
+                children[ide.current_block_selection - 1].setColor(color)
+            }
+        }
+        // if its at the end/ we want to just skip
+        else if(ide.current_block_selection === children.length){
+            ide.current_block_selection -= 1;
+        }
+    }
+    if (evt === 'up arrow'){
+        children = ide.palette.contents.children;
+        ide.current_block_selection -= 1;
+
+        if (ide.current_block_selection >= 0 || ide.current_block_selection < children.length){
+            color = ide.original_colors[ide.currentCategory];
+            children[ide.current_block_selection].setColor(new Color(221,255,174,255));
+            if (ide.current_block_selection != -1){
+                children[ide.current_block_selection + 1].setColor(color)
+            }
+        }
+        else if (ide.current_block_selection === -2){
+            ide.current_block_selection = -1;
         }
     }
     this.children.concat(this).forEach(function (morph) {
