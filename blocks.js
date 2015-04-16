@@ -4064,12 +4064,6 @@ ReporterBlockMorph.prototype.constructor = ReporterBlockMorph;
 ReporterBlockMorph.uber = BlockMorph.prototype;
 
 // ReporterBlockMorph instance creation:
-function updateVideo(link) {
-    var start = link.indexOf("watch?v=") + 8;
-    var youtubeID = link.substring(start, start + 11);
-    $('#frame').remove();
-    $('<iframe id="frame" frameborder="0" height="100%" width="100%">').attr('src', "https://youtube.com/embed/" + youtubeID + "?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1").appendTo('#player');
-};
 
 function ReporterBlockMorph(isPredicate) {
     this.init(isPredicate);
