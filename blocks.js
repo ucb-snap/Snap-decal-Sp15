@@ -1922,6 +1922,8 @@ BlockMorph.prototype.init = function () {
     this.blockSpec = ''; // formal description of label and arguments
     this.comment = null; // optional "sticky" comment morph
 
+    this.debugMode = false;
+
     // not to be persisted:
     this.instantiationSpec = null; // spec to set upon fullCopy() of template
     this.category = null; // for zebra coloring (non persistent)
@@ -2082,6 +2084,13 @@ BlockMorph.prototype.userMenu = function () {
         "help...",
         'showHelp'
     );
+    menu.addItem(
+        "toggle Debug mode...",
+        function() {
+            this.debugMode = !this.debugMode;
+        }
+    );
+
     menu.addItem(
         "color...",
         function () {
