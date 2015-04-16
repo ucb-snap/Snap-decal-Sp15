@@ -1922,7 +1922,9 @@ BlockMorph.prototype.init = function () {
     this.blockSpec = ''; // formal description of label and arguments
     this.comment = null; // optional "sticky" comment morph
 
-    this.debugMode = false;
+    this.debugMode = false; // debugMode is enabled when user clicks menu
+    this.stepOver = false; // used to iterate through blocks
+
 
     // not to be persisted:
     this.instantiationSpec = null; // spec to set upon fullCopy() of template
@@ -2090,7 +2092,21 @@ BlockMorph.prototype.userMenu = function () {
             this.debugMode = !this.debugMode;
         }
     );
+    if (this.debugMode) {
+        menu.addItem(
+            "step over",
+            function() {
+                this.stepOver = !this.stepOver;
+            }
+        );
+        menu.addItem(
+            "Stop",
+            function() {
+                this.stop = !this.stop;
+            }
 
+        )
+    }
     menu.addItem(
         "color...",
         function () {

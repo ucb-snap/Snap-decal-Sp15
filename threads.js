@@ -476,6 +476,12 @@ Process.prototype.evaluateContext = function () {
         return this.evaluateInput(exp);
     }
     if (exp instanceof BlockMorph) {
+        //beware of custome block morph
+        //instance of Blockmorph
+        //BLocks.byob --editor of custom block text
+        if (exp.debugMode) {
+            exp.pauseStep();
+        }
         return this.evaluateBlock(exp, exp.inputs().length);
     }
     if (isString(exp)) {
@@ -485,10 +491,6 @@ Process.prototype.evaluateContext = function () {
 };
 
 Process.prototype.evaluateBlock = function (block, argCount) {
-
-    if (block.debugMode) {
-        pauseStep();
-    }
 
     // check for special forms
     if (contains(['reportOr', 'reportAnd', 'doReport'], block.selector)) {
