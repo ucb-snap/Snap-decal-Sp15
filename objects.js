@@ -207,7 +207,7 @@ SpriteMorph.prototype.initBlocks = function () {
             only: SpriteMorph,
             type: 'command',
             category: 'motion',
-            spec: 'move %n steps',
+            spec: 'youtube link %s',
             defaults: [10]
         },
         turn: {
@@ -868,6 +868,12 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'sensing',
             spec: 'http:// %s',
             defaults: ['snap.berkeley.edu']
+        },
+        reportVideo: {
+            type: 'reporter',
+            category: 'sensing',
+            spec: 'http:// %s',
+            defaults: ['youtube.com']
         },
         reportIsFastTracking: {
             type: 'predicate',
@@ -1910,6 +1916,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportAttributeOf'));
         blocks.push('-');
         blocks.push(block('reportURL'));
+        blocks.push(block('reportVideo'));
         blocks.push('-');
         blocks.push(block('reportIsFastTracking'));
         blocks.push(block('doSetFastTracking'));
@@ -3287,6 +3294,7 @@ Morph.prototype.setPosition = function (aPoint, justMe) {
 };
 
 SpriteMorph.prototype.forward = function (steps) {
+
     var dest,
         dist = steps * this.parent.scale || 0;
 
@@ -5067,6 +5075,7 @@ StageMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportAttributeOf'));
         blocks.push('-');
         blocks.push(block('reportURL'));
+        blocks.push(block('reportVideo'));
         blocks.push('-');
         blocks.push(block('reportIsFastTracking'));
         blocks.push(block('doSetFastTracking'));
