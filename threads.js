@@ -388,6 +388,7 @@ Process.prototype.runStep = function () {
     // a step is an an uninterruptable 'atom', it can consist
     // of several contexts, even of several blocks
 
+
     if (this.isPaused) { // allow pausing in between atomic steps:
         return this.pauseStep();
     }
@@ -476,6 +477,14 @@ Process.prototype.evaluateContext = function () {
         return this.evaluateInput(exp);
     }
     if (exp instanceof BlockMorph) {
+        if (exp.debugMode) {
+            pause();
+            exp.debugMode = false;
+            return;
+        }
+        if (this.isPaused) {
+            resume();
+        }
         return this.evaluateBlock(exp, exp.inputs().length);
     }
     if (isString(exp)) {
@@ -486,9 +495,11 @@ Process.prototype.evaluateContext = function () {
 
 Process.prototype.evaluateBlock = function (block, argCount) {
 
-    if (block.debugMode) {
-        pauseStep();
-    }
+    // if (block.debugMode) {
+    //     // block.debugMode = !block.debugMode;
+    //     pauseStep();
+    //     return;
+    // }
 
     // check for special forms
     if (contains(['reportOr', 'reportAnd', 'doReport'], block.selector)) {
