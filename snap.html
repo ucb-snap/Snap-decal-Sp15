@@ -30,6 +30,22 @@
 				world.doOneCycle();
 			}
 		</script>
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.9/buzz.min.js">
+			var mySound = new buzz.sound( "/sample", {
+			    formats: [ "ogg", "mp3", "aac" ]
+			});
+
+			mySound.play()
+			    .fadeIn()
+			    .loop()
+			    .bind( "timeupdate", function() {
+			       var timer = buzz.toTimer( this.getTime() );
+			       document.getElementById( "timer" ).innerHTML = timer;
+			    });
+		</script>
+
+
 	</head>
 	<body style="margin: 0;">
 		<canvas id="world" tabindex="1" style="position: absolute;" />
