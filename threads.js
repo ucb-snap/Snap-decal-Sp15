@@ -485,6 +485,11 @@ Process.prototype.evaluateContext = function () {
 };
 
 Process.prototype.evaluateBlock = function (block, argCount) {
+
+    if (block.debugMode) {
+        pauseStep();
+    }
+
     // check for special forms
     if (contains(['reportOr', 'reportAnd', 'doReport'], block.selector)) {
         return this[block.selector](block);
