@@ -1863,8 +1863,9 @@ Process.prototype.reportURL = function (url) {
     this.pushContext();
 };
 
-Process.prototype.reportVideo = function (url) {
-    updateBackgroundVideo(url);
+Process.prototype.reportVideo = function (url, startMin, startSec, stopMin, stopSec) {
+    updateBackgroundVideo(url, startMin, startSec, stopMin, stopSec);
+    doWait(stopMin * 60 + stopSec - (startMin * 60 - startSec));
 }
 
 // Process event messages primitives
