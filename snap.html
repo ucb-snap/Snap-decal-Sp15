@@ -11,11 +11,21 @@
 		 * removes current iframe and re-appends it to containing div with new video (since you can't live update an iframe youtube src)
 		 * returns nothing
 		 */
-		function updateBackgroundVideo(link) {
+		function updateBackgroundVideo(link, startMin, startSec, stopMin, stopSec) {
 			var start = link.indexOf("watch?v=") + 8;
 			var youtubeID = link.substring(start, start + 11);
+			var start, stop;
+			var defaultParams = "?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1;enablejsapi=1;wmode=transparent";
+			var params;
+			if(startMin === undefined) {
+				params = defaultParams
+			} else {
+				start = 60 + startSec;
+				stop = stopMin * 60 + stopSec;
+				params += ";start=" + start + "&end=" + stop
+			}
 			$('#frame').remove();
-			$('<iframe id="frame" frameborder="0" height="100%" width="100%">').attr('src', "https://youtube.com/embed/" + youtubeID + "?autoplay=1&amp;controls=0&amp;showinfo=0&amp;autohide=1;enablejsapi=1;wmode=transparent").appendTo('#player');
+			$('<iframe id="frame" frameborder="0" height="100%" width="100%">').attr('src', "https://youtube.com/embed/" + youtubeID + params).appendTo('#player');
 		}
 
 		function toggleBackgroundVideo() {
