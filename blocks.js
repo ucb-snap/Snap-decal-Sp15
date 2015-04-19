@@ -2086,10 +2086,22 @@ BlockMorph.prototype.userMenu = function () {
         "help...",
         'showHelp'
     );
+    // menu.addItem(
+    //     "toggle Debug mode...",
+    //     function() {
+    //         this.debugMode = !this.debugMode;
+    //     }
+    // );
     menu.addItem(
-        "toggle Debug mode...",
+        "turn Debug mode on...",
         function() {
-            this.debugMode = !this.debugMode;
+            this.debugMode = true;
+        }
+    );
+    menu.addItem(
+        "turn Debug mode off...",
+        function() {
+            this.debugMode = false;
         }
     );
     if (this.debugMode) {
