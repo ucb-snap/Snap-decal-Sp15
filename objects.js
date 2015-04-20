@@ -576,6 +576,11 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'control',
             spec: 'when %greenflag clicked'
         },
+        receiveDebug: {
+            type: 'hat',
+            category: 'control',
+            spec: 'Debug when %greenflag clicked'
+        },
         receiveKey: {
             type: 'hat',
             category: 'control',
@@ -1254,6 +1259,7 @@ SpriteMorph.prototype.blockAlternatives = {
 
     // control:
     receiveGo: ['receiveClick'],
+    receiveDebug: ['receiveClick'],
     receiveClick: ['receiveGo'],
     doBroadcast: ['doBroadcastAndWait'],
     doBroadcastAndWait: ['doBroadcast'],
@@ -1827,6 +1833,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
     } else if (cat === 'control') {
 
         blocks.push(block('receiveGo'));
+        blocks.push(block('receiveDebug'));
         blocks.push(block('receiveKey'));
         blocks.push(block('receiveClick'));
         blocks.push(block('receiveMessage'));
