@@ -3496,6 +3496,7 @@ SpriteMorph.prototype.allHatBlocksFor = function (message) {
     if (typeof message === 'number') {message = message.toString(); }
     return this.scripts.children.filter(function (morph) {
         var event;
+        //if (morph.blockSpec.equals("Debug when %greenflag clicked")
         if (morph.selector) {
             if (morph.selector === 'receiveMessage') {
                 event = morph.inputs()[0].evaluate();
