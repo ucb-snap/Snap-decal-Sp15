@@ -478,8 +478,10 @@ Process.prototype.evaluateContext = function () {
     }
     if (exp instanceof BlockMorph) {
         if (exp.debugMode) {
-            pause();
+            // pause();
+            doPauseAll();
             exp.debugMode = false;
+            // also change "pause" button into "play" button??
             return;
         }
         if (this.isPaused) {
