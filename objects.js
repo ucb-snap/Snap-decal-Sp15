@@ -3502,6 +3502,9 @@ SpriteMorph.prototype.allHatBlocksFor = function (message) {
                 event = morph.inputs()[0].evaluate();
                 return event === message || (event instanceof Array);
             }
+            if (morph.selector === 'receiveDebug') {
+                return message === '__shout__go__';
+            }
             if (morph.selector === 'receiveGo') {
                 return message === '__shout__go__';
             }
@@ -4803,10 +4806,19 @@ StageMorph.prototype.fireGreenFlagEvent = function () {
         }
     });
     hats.forEach(function (block) {
-        procs.push(myself.threads.startProcess(
-            block,
-            myself.isThreadSafe
-        ));
+        if (block.blockSpec === "Debug when %greenflag clicked") {
+            block.children.forEach(function (block) {
+                procs.push(myself.threads.startProcess(
+                    block,
+                    myself.isThreadSafe
+                ));
+            });
+        } else {
+            procs.push(myself.threads.startProcess(
+                block,
+                myself.isThreadSafe
+            ));
+        }
     });
     if (ide) {
         ide.controlBar.pauseButton.refresh();
@@ -5000,6 +5012,7 @@ StageMorph.prototype.blockTemplates = function (category) {
     } else if (cat === 'control') {
 
         blocks.push(block('receiveGo'));
+        blocks.push(block('receiveDebug'));
         blocks.push(block('receiveKey'));
         blocks.push(block('receiveClick'));
         blocks.push(block('receiveMessage'));

@@ -1922,10 +1922,6 @@ BlockMorph.prototype.init = function () {
     this.blockSpec = ''; // formal description of label and arguments
     this.comment = null; // optional "sticky" comment morph
 
-    this.debugMode = false; // debugMode is enabled when user clicks menu
-    this.stepOver = false; // used to iterate through blocks
-
-
     // not to be persisted:
     this.instantiationSpec = null; // spec to set upon fullCopy() of template
     this.category = null; // for zebra coloring (non persistent)
@@ -2086,39 +2082,6 @@ BlockMorph.prototype.userMenu = function () {
         "help...",
         'showHelp'
     );
-    // menu.addItem(
-    //     "toggle Debug mode...",
-    //     function() {
-    //         this.debugMode = !this.debugMode;
-    //     }
-    // );
-    menu.addItem(
-        "turn Debug mode on...",
-        function() {
-            this.debugMode = true;
-        }
-    );
-    menu.addItem(
-        "turn Debug mode off...",
-        function() {
-            this.debugMode = false;
-        }
-    );
-    if (this.debugMode) {
-        menu.addItem(
-            "step over",
-            function() {
-                this.stepOver = !this.stepOver;
-            }
-        );
-        menu.addItem(
-            "Stop",
-            function() {
-                this.stop = !this.stop;
-            }
-
-        )
-    }
     menu.addItem(
         "color...",
         function () {
