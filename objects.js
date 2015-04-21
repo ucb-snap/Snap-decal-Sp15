@@ -4806,19 +4806,10 @@ StageMorph.prototype.fireGreenFlagEvent = function () {
         }
     });
     hats.forEach(function (block) {
-        if (block.blockSpec === "Debug when %greenflag clicked") {
-            block.children.forEach(function (block) {
-                procs.push(myself.threads.startProcess(
-                    block,
-                    myself.isThreadSafe
-                ));
-            });
-        } else {
-            procs.push(myself.threads.startProcess(
-                block,
-                myself.isThreadSafe
-            ));
-        }
+        procs.push(myself.threads.startProcess(
+            block,
+            myself.isThreadSafe
+        ));
     });
     if (ide) {
         ide.controlBar.pauseButton.refresh();

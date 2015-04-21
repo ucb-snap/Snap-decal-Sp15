@@ -3913,7 +3913,23 @@ HatBlockMorph.prototype.init = function () {
 HatBlockMorph.prototype.blockSequence = function () {
     // override my inherited method so that I am not part of my sequence
     var result = HatBlockMorph.uber.blockSequence.call(this);
-    result.shift();
+    var head = result.shift();
+    if (head.blockSpec === "Debug when %greenflag clicked") {
+        var debugArr = [];
+        var index;
+        var origIndex = 0;
+        for	(index = 0; index < result.length*2; index+=2) {
+            debugArr[index] = result[origIndex];
+            var curr = new BlockMorph();
+            curr.setSpec('pause all %pause');
+            curr.setSelector('doPauseAll');
+            console.log(result[origIndex]);
+            console.log(curr);
+            debugArr[index+1] = curr;
+            origIndex += 1;
+        }
+        result = debugArr;
+    }
     return result;
 };
 
