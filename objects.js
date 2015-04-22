@@ -4751,7 +4751,8 @@ StageMorph.prototype.fireKeyEvent = function (key) {
         procs = [],
         ide = this.parentThatIsA(IDE_Morph),
         myself = this,
-        index = ide.category_index;
+        index = ide.category_index,
+        world = this.world();
 
     this.keysPressed[evt] = true;
     if (evt === 'ctrl enter') {
@@ -4809,11 +4810,11 @@ StageMorph.prototype.fireKeyEvent = function (key) {
     }
     if (evt === 'down arrow'){
 
-        children = ide.palette.contents.children;
+        var children = ide.palette.contents.children;
         ide.current_block_selection += 1;
 
         if (ide.current_block_selection >= 0 || ide.current_block_selection < children.length){
-            color = ide.original_colors[ide.currentCategory];
+            var color = ide.original_colors[ide.currentCategory];
             children[ide.current_block_selection].setColor(new Color(221,255,174,255));
             if (ide.current_block_selection != 0){
                 children[ide.current_block_selection - 1].setColor(color)
@@ -4823,13 +4824,14 @@ StageMorph.prototype.fireKeyEvent = function (key) {
         else if(ide.current_block_selection === children.length){
             ide.current_block_selection -= 1;
         }
+        console.log(children[ide.current_block_selection]);
     }
     if (evt === 'up arrow'){
-        children = ide.palette.contents.children;
+        var children = ide.palette.contents.children;
         ide.current_block_selection -= 1;
 
         if (ide.current_block_selection >= 0 || ide.current_block_selection < children.length){
-            color = ide.original_colors[ide.currentCategory];
+            var color = ide.original_colors[ide.currentCategory];
             children[ide.current_block_selection].setColor(new Color(221,255,174,255));
             if (ide.current_block_selection != -1){
                 children[ide.current_block_selection + 1].setColor(color)
@@ -4838,7 +4840,29 @@ StageMorph.prototype.fireKeyEvent = function (key) {
         else if (ide.current_block_selection === -2){
             ide.current_block_selection = -1;
         }
+        console.log(children[ide.current_block_selection]);
     }
+    if (evt === 'enter'){
+        var children = ide.palette.contents.children;
+        var block = children[ide.current_block_selection];
+        var hand = world.hand;
+
+        copied_block = block.fullCopy();
+        console.log(copied_block);
+        hand.grab(copied_block);
+        hand.drop();
+        ide.stage.scripts.parent = copied_block.parent.parent;
+        ide.stage.scripts.children.push(copied_block);
+        ide.stage.scripts.cleanUp();
+        console.log(ide.stage.scripts);
+        
+
+    }
+    if (evt === 'left arrow'){
+        ide.stage.scripts.cleanUp();
+    }
+    // end project additions
+
     this.children.concat(this).forEach(function (morph) {
         if (morph instanceof SpriteMorph || morph instanceof StageMorph) {
             hats = hats.concat(morph.allHatBlocksForKey(evt));

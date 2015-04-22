@@ -137,7 +137,7 @@
 
 /*global Array, BlinkerMorph, BouncerMorph, BoxMorph, CircleBoxMorph,
 Color, ColorPaletteMorph, ColorPickerMorph, CursorMorph, Date,
-FrameMorph, Function, GrayPaletteMorph, HandMorph, HandleMorph,
+FrameMorph, Function, GrayPaletteMorph, HandleMorph,
 InspectorMorph, ListMorph, Math, MenuItemMorph, MenuMorph, Morph,
 MorphicPreferences, MouseSensorMorph, Node, Object, PenMorph, Point,
 Rectangle, ScrollFrameMorph, ShadowMorph, SliderButtonMorph,
@@ -5103,6 +5103,7 @@ ScriptsMorph.prototype.userMenu = function () {
 // ScriptsMorph user menu features:
 
 ScriptsMorph.prototype.cleanUp = function () {
+
     var origin = this.topLeft(),
         y = this.cleanUpMargin,
         myself = this;
@@ -5125,6 +5126,8 @@ ScriptsMorph.prototype.cleanUp = function () {
         this.setPosition(this.parent.topLeft());
     }
     this.adjustBounds();
+    console.log("CALLing Cleanup");
+    console.log(this);
 };
 
 ScriptsMorph.prototype.exportScriptsPicture = function () {
