@@ -209,6 +209,17 @@ IDE_Morph.prototype.init = function (isAutoFill) {
         'variables': new Color(243, 118, 29, 1)
     };
 
+    this.no_blocks_index = {
+        'motion' : [13, 14, 15, 16, 17, 18],
+        'control' : [6, 7],
+        'looks': [2, 3, 13 ,14],
+        'sensing': [4, 5, 6, 7, 8, 9, 14, 15],
+        'sound': [7, 8],
+        'operators': [0, 1, 2],
+        'pen': [],
+        'variables': [0, 5, 16]
+    };
+
     // end project additions
 
     this.globalVariables = new VariableFrame();

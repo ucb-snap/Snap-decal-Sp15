@@ -4811,12 +4811,14 @@ StageMorph.prototype.fireKeyEvent = function (key) {
     if (evt === 'down arrow'){
 
         var children = ide.palette.contents.children;
+        var bad_indexes = ide.no_blocks_index[ide.currentCategory];
         ide.current_block_selection += 1;
 
-        if (ide.current_block_selection >= 0 || ide.current_block_selection < children.length){
+        if (ide.current_block_selection >= 0 && ide.current_block_selection < children.length){
             var color = ide.original_colors[ide.currentCategory];
             children[ide.current_block_selection].setColor(new Color(221,255,174,255));
-            if (ide.current_block_selection != 0){
+
+            if (ide.current_block_selection != 0) {
                 children[ide.current_block_selection - 1].setColor(color)
             }
         }
@@ -4829,11 +4831,13 @@ StageMorph.prototype.fireKeyEvent = function (key) {
     if (evt === 'up arrow'){
         var children = ide.palette.contents.children;
         ide.current_block_selection -= 1;
+        var bad_indexes = ide.no_blocks_index[ide.currentCategory];
 
-        if (ide.current_block_selection >= 0 || ide.current_block_selection < children.length){
+        if (ide.current_block_selection >= 0 && ide.current_block_selection < children.length){
             var color = ide.original_colors[ide.currentCategory];
             children[ide.current_block_selection].setColor(new Color(221,255,174,255));
-            if (ide.current_block_selection != -1){
+
+            if (ide.current_block_selection != -1 ) {
                 children[ide.current_block_selection + 1].setColor(color)
             }
         }
@@ -4844,23 +4848,29 @@ StageMorph.prototype.fireKeyEvent = function (key) {
     }
     if (evt === 'enter'){
         var children = ide.palette.contents.children;
-        var block = children[ide.current_block_selection];
-        var hand = world.hand;
+        var bad_indexes = ide.no_blocks_index[ide.currentCategory];
+        if (bad_indexes.indexOf(ide.current_block_selection) == -1){
+            var block = children[ide.current_block_selection];
+            var hand = world.hand;
 
-        copied_block = block.fullCopy();
-        console.log(copied_block);
-        hand.grab(copied_block);
-        hand.drop();
-        ide.stage.scripts.parent = copied_block.parent.parent;
-        ide.stage.scripts.children.push(copied_block);
-        ide.stage.scripts.cleanUp();
-        console.log(ide.stage.scripts);
+            copied_block = block.fullCopy();
+            console.log(copied_block);
+            hand.grab(copied_block);
+            hand.drop();
+            ide.stage.scripts.parent = copied_block.parent.parent;
+            ide.stage.scripts.children.push(copied_block);
+            ide.stage.scripts.cleanUp();
+            console.log(ide.stage.scripts);
+        }
+        
+        
         
 
     }
     if (evt === 'left arrow'){
         ide.stage.scripts.cleanUp();
     }
+
     // end project additions
 
     this.children.concat(this).forEach(function (morph) {
