@@ -1868,8 +1868,8 @@ Process.prototype.reportVideo = function (url, startMin, startSec, stopMin, stop
     diff = Number(stopMin) * 60 + Number(stopSec) - (Number(startMin) * 60 + Number(startSec));
     setTimeout(function() {
         $('#frame').hide();
-    }, diff * 1000);
-    this.doWait(diff);
+    }, diff * 1000 + 1000);
+    // this.doWait(diff);
 }
 
 // Process event messages primitives
