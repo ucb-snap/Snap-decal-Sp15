@@ -3923,8 +3923,6 @@ HatBlockMorph.prototype.blockSequence = function () {
             var curr = new BlockMorph();
             curr.setSpec('pause all %pause');
             curr.setSelector('doPauseAll');
-            console.log(result[origIndex]);
-            console.log(curr);
             debugArr[index+1] = curr;
             origIndex += 1;
         }

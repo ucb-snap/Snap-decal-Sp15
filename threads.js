@@ -477,16 +477,6 @@ Process.prototype.evaluateContext = function () {
         return this.evaluateInput(exp);
     }
     if (exp instanceof BlockMorph) {
-        if (exp.debugMode) {
-            // pause();
-            doPauseAll();
-            exp.debugMode = false;
-            // also change "pause" button into "play" button??
-            return;
-        }
-        if (this.isPaused) {
-            resume();
-        }
         return this.evaluateBlock(exp, exp.inputs().length);
     }
     if (isString(exp)) {
@@ -496,12 +486,6 @@ Process.prototype.evaluateContext = function () {
 };
 
 Process.prototype.evaluateBlock = function (block, argCount) {
-
-    // if (block.debugMode) {
-    //     // block.debugMode = !block.debugMode;
-    //     pauseStep();
-    //     return;
-    // }
 
     // check for special forms
     if (contains(['reportOr', 'reportAnd', 'doReport'], block.selector)) {
