@@ -177,7 +177,7 @@ IDE_Morph.prototype.setDefaultDesign();
 // IDE_Morph instance creation:
 
 function IDE_Morph(isAutoFill) {
-    this.init(isAutoFill);
+	this.init(isAutoFill);
 }
 
 IDE_Morph.prototype.init = function (isAutoFill) {
@@ -857,12 +857,10 @@ IDE_Morph.prototype.createCategories = function () {
 IDE_Morph.prototype.createPalette = function (forSearching) {
     // assumes that the logo pane has already been created
     // needs the categories pane for layout
-    var myself = this;
-
+	var myself = this;
     if (this.palette) {
         this.palette.destroy();
     }
-
     if (forSearching) {
         this.palette = new ScrollFrameMorph(
             null,
@@ -2101,6 +2099,12 @@ IDE_Morph.prototype.settingsMenu = function () {
         'Stage size...',
         'userSetStageSize'
     );
+    //BEGIN ADDED
+    menu.addItem(
+        'Math expression...',
+        'userAddMathBlock'
+    );
+    //END ADDED
     menu.addLine();
     addPreference(
         'Blurred shadows',
@@ -3622,6 +3626,395 @@ IDE_Morph.prototype.userSetStageSize = function () {
         null // msg
     );
 };
+
+//BEGIN ADDED
+IDE_Morph.prototype.userAddMathBlock = function () {
+    new DialogBoxMorph(
+        this,
+        this.setMathBlock,
+        this
+    ).prompt(
+        "Enter Math Expression",
+        null,
+        this.world()
+    );
+};
+
+IDE_Morph.prototype.setMathBlock = function (expr) {
+	EmptyBlock = function() {
+		this.operation = null;
+		this.child1 = null;
+		this.child2 = null;
+		this.value = null;
+		this.next = null;
+	};
+	MathBlock = function(operation, child1, child2) {
+		var block = new EmptyBlock();
+		block.operation = operation;
+		block.child1 = child1;
+		block.child2 = child2;
+		return block;
+	};
+	PrimitiveBlock = function(value) {
+		var block = new EmptyBlock();
+		block.value = value;
+		return block;
+	};
+	BlockFromChar = function(character) {
+		switch(character) {
+		case ' ':
+			return new PrimitiveBlock(' ');
+		case '(':
+			return new PrimitiveBlock('(');
+		case ')':
+			return new PrimitiveBlock(')');
+		case '+':
+			return new PrimitiveBlock('+');
+		case '-':
+			return new PrimitiveBlock('-');
+		case '/':
+			return new PrimitiveBlock('/');
+		case '*':
+			return new PrimitiveBlock('*');
+		default:
+			return new EmptyBlock();
+		}
+	};
+	opType = function(value) {
+	switch(value) {
+		case '(':
+			return 1;
+		case ')': 
+			return 2;
+		case '*':
+		case '/':
+			return 3; 
+		case '+':
+		case '-':
+			return 4; 
+		default: 
+			return 0; //0 means variable or value.
+		}
+	};
+	failHandler = function() {
+		return; //default failure behaviour
+	};
+	if(expr.length <= 0) {
+		failHandler();
+		return;
+	}
+	//main parse loop
+	var regmatch;
+	var  head = null;
+	var current;
+	var count = 0;
+	while(expr.length > 0 && count < 500) { //no infinite looping
+		regmatch = expr.match(/[^ +-/*()]+(\s*[^ +-/*()]+)*/);//match #s & vars
+		if(regmatch) {
+			var i = 0;
+			while(i < regmatch.index) {
+				if(!head) {
+					head = BlockFromChar(expr.charAt(i));
+					current = head;
+				} else {
+					current.next = BlockFromChar(expr.charAt(i));
+					current = current.next;
+				}
+				i++;
+			}
+			if(!head) {
+				head = new PrimitiveBlock(regmatch[0]);
+				current = head;
+			} else {
+				current.next = new PrimitiveBlock(regmatch[0]);
+				current = current.next;
+			}
+			//reset the expression.
+			expr = expr.substring(regmatch.index + regmatch[0].length, 
+					expr.length);
+		} else {
+			var i = 0;
+			while( i < expr.length ) {
+				if(!head) {
+					head = BlockFromChar(expr.charAt(i));
+					current = head;
+				} else {
+					current.next = BlockFromChar(expr.charAt(i));
+					current = current.next;
+				}
+				i++;
+			}
+			expr = "";
+		}
+		count++;
+	}
+	//get rid of white space
+	current = head;
+	while(current) {
+		if(current.next && current.next.value == ' ') {
+			current.next = current.next.next; //skip and try again
+		} else {
+			current = current.next; //go ahead
+		}
+		
+	}
+	//sweep for syntax
+	var previousType = opType(head.value);
+	var openingBrackets = 0;
+	var closingBrackets = 0;
+	var fail = false;
+	if(previousType >= 2) {
+		failHandler();
+		return;
+	} else if(previousType == 1) {
+		openingBrackets++;
+	}
+	current = head.next;
+	while(current) {
+		var currentType = opType(current.value);
+		if(currentType == 0 && previousType == 0) { 
+			fail = true;
+		}
+		if(currentType >= 3 && previousType >= 3) {
+			fail = true;
+		}
+		if(currentType == 1 && previousType == 2) {
+			fail = true;
+		}
+		if(currentType == 2 && previousType == 1) {
+			fail = true;
+		}
+		if(previousType == 1 && currentType >= 3) { 
+			fail = true;
+		}
+		if(previousType >= 3 && currentType == 2) { 
+			fail = true;
+		}
+		if(previousType == 0 && currentType == 1) {
+			fail = true;
+		}
+		if(currentType == 1) {
+			openingBrackets++;
+		} else if(currentType == 2) {
+			closingBrackets++;
+		}
+		if(closingBrackets > openingBrackets) {
+			fail = true;
+		}
+		current = current.next;
+		previousType = currentType;
+	}
+	if(closingBrackets != openingBrackets) {
+		fail = true;
+	}
+	if(fail) {
+		failHandler();
+		return;
+	}
+	//returns if the math block indicated by pointer is a valid expr tree
+	inForm = function(pointer) {
+		if(pointer.next) {
+			return false; 
+		} else {
+			return true;
+		}
+	};
+	var num = 0;
+	//keep making blocks.
+	while(!inForm(head)) {
+		var previous = null;
+		var current = head;
+		while(current.next) {	
+			while(current.next && opType(current.value) != 0) {
+				previous = current;
+				current = current.next;
+			} 
+			if(!current.next) {
+				failHandler(); //this shouldn't happen.
+				return;
+			}
+			var prevChar = '(';
+			if(previous) {
+				prevChar = previous.value;
+			}
+			var nextChar = ')';
+			if(current.next) {
+				nextChar = current.next.value;
+			}
+			var nextnextChar = 'x';
+			if(current.next.next) {
+				nextnextChar = current.next.next.value;
+			}
+			if(prevChar == '/') {
+				previous = current;
+				current = current.next;
+				continue;
+			}
+			if(nextnextChar == '(') {
+				previous = current;
+				current = current.next;				
+				continue;
+			}
+			if(nextChar == ')') {
+				if(prevChar == '(') {
+					previous.child1 = current.child1;
+					previous.child2 = current.child2;
+					previous.value = current.value;
+					previous.operation = current.operation;
+					previous.next = current.next.next;
+					current.next = null;
+					break;
+				}
+				previous = current;
+				current = current.next;
+				continue;
+			}
+			if(nextChar == '*' || nextChar == '/') {
+				var newBlock = new MathBlock(nextChar, current, 
+						current.next.next);
+				newBlock.next = current.next.next.next;
+				if(!previous) {
+					head = newBlock;
+				}	else {
+					previous.next = newBlock;
+				}
+				current.next = null;
+				break;
+			}
+			if(nextChar == '-' || nextChar == '+') {
+				if(prevChar == '(' || prevChar == '+') {
+					var nnnChar = ')';
+					if(current.next.next && current.next.next.next) {
+						nnnChar = current.next.next.next.value;
+					}
+					if(nnnChar == ')' || nnnChar == '+' || nnnChar == '-') {
+						var newBlock = new MathBlock(nextChar, current,
+								current.next.next);
+						newBlock.next = current.next.next.next;
+						if(!previous) {
+							head = newBlock;
+						} else {
+							previous.next = newBlock;
+						}
+						current.next = null;
+						break;			
+					}
+				}
+			}	
+			previous = current;
+			current = current.next;
+		}
+		num++;
+		if(num > 500) {
+			failHandler();
+			return;
+		}
+	}
+	toSt = function(node) {
+		if(node.child1 == null && node.child2 == null) {
+			return node.value;
+		}
+		if(node.child1 == null) {
+			return "[" + node.value + node.operation + toSt(node.child2) + "]";
+		}
+		if(node.child2 == null) {
+			return "[" + toSt(node.child1) + node.operation + node.value + "]";
+		} else {
+			return "[" + toSt(node.child1) + node.operation +
+					toSt(node.child2) + "]";
+		}
+	};
+	
+	remoteDrop = function (target, morphToDrop) {
+		var target;
+        target.add(morphToDrop);
+        morphToDrop.changed();
+        morphToDrop.removeShadow();
+	};
+	ReporterBlockMorph.prototype.remoteSnap = function(target) {
+		// passing the hand is optional (for when blocks are dragged & dropped)	
+		var scripts = this.parent,
+			target;
+		if (!scripts instanceof ScriptsMorph) {
+			return null;
+		}
+		scripts.clearDropHistory();
+		scripts.lastDroppedBlock = this;
+		if (target !== null) {
+			scripts.lastReplacedInput = target;
+			scripts.lastDropTarget = target.parent;
+			if (target instanceof MultiArgMorph) {
+				scripts.lastPreservedBlocks = target.inputs();
+				scripts.lastReplacedInput = target.fullCopy();
+			}
+			target.parent.replaceInput(target, this);
+			if (this.snapSound) {
+				this.snapSound.play();
+			}
+		}
+		this.startLayout();
+		this.fixBlockColor();
+		this.endLayout();
+		ReporterBlockMorph.uber.snap.call(this);
+	};
+	
+	var ide = this.parentThatIsA(IDE_Morph);
+          ide.currentCategory = 'operators';
+          ide.categories.children.forEach(function (each) {
+          each.refresh();
+     });
+	ide.refreshPalette(true);
+	var hand = world.hand;	
+	var add_template = this.palette.children[0].children[3];
+	var sub_template = this.palette.children[0].children[4];
+	var mul_template = this.palette.children[0].children[5];
+	var div_template = this.palette.children[0].children[6];
+	var parent_block;
+	recur = function(node, parent) {
+		if(node.child1 == null && node.child2 == null) {
+			return null;
+		}
+		var block;
+		if(node.operation == '+') {
+			block = add_template.fullCopy();
+		}	else if(node.operation == '-') {
+			block = sub_template.fullCopy();
+		} else if(node.operation == '/') {
+			block = div_template.fullCopy();
+		} else if(node.operation == '*') {
+			block = mul_template.fullCopy();
+		}
+		block.isDraggable = true;
+		block.isTemplate = false;
+		remoteDrop(parent, block);
+		var child1;
+		var child2;
+		child1 = recur(node.child1, parent);
+		child2 = recur(node.child2, parent);
+		if(child1) {
+			child1.remoteSnap(block.children[0]);
+		} else {
+			if(node.child1.value) {
+				block.children[0].children[0].text = node.child1.value;
+				block.children[0].children[0].show();
+			}
+		}
+		if(child2) {
+			child2.remoteSnap(block.children[2]);
+		} else {
+			if( node.child2.value ) {
+				block.children[2].children[0].text = node.child2.value;
+				block.children[2].children[0].show();
+			}
+		}
+		return block;
+	}
+	var main_block = recur(head, this.currentSprite.scripts); 
+	main_block.setPosition(hand.position().subtract(
+           main_block.extent().floorDivideBy(2)));
+	hand.grab(main_block); //allow mouse to grab newly made block
+};
+//END ADDED
 
 IDE_Morph.prototype.setStageExtent = function (aPoint) {
     var myself = this,

@@ -3858,7 +3858,8 @@ HandleMorph.prototype.drawOnCanvas = function (
 HandleMorph.prototype.step = null;
 
 HandleMorph.prototype.mouseDownLeft = function (pos) {
-    var world = this.root(),
+				
+		var world = this.root(),
         offset = pos.subtract(this.bounds.origin),
         myself = this;
 
