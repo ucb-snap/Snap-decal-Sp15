@@ -37,10 +37,6 @@
 		<script>
 			if (annyang) {
 			  // Let's define our first command. First the text we expect, and then the function it should call
-			  var audio = new Audio("sample.mp3");
-			  var play_music = function() {
-			  	audio.play();
-			  }
 
 			  // Function Control
 			  var manual = function () {
@@ -58,7 +54,7 @@
               // API Control
               var abort = function() {
               	annyang.abort();
-              }
+              };
 
               // User Mood Contrl
               var cheer_up = function() {
@@ -66,22 +62,23 @@
               };
 
               var test = function() {
-              	alert("hello");
+              	alert("hello welcome to snap");
               };
 
               // Commands and Annyang Fuctions
 			  var commands = {
 			  	// Function Control
 			    'manual': manual,
-			    'snap website': snap_website,
-			    'download source': download_source,
-			    'test': test,
+			    'website': snap_website,
+			    'download': download_source,
+			    'hello': test,
 
 			    // API Control
 			    'abort': abort,
 
 			    // User Mood Control
 			    'this is hard': cheer_up
+			    
 			  };
 
 			  // Add our commands to annyang
