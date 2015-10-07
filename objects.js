@@ -576,6 +576,11 @@ SpriteMorph.prototype.initBlocks = function () {
             category: 'control',
             spec: 'when %greenflag clicked'
         },
+        receiveDebug: {
+            type: 'hat',
+            category: 'control',
+            spec: 'Debug when %greenflag clicked'
+        },
         receiveKey: {
             type: 'hat',
             category: 'control',
@@ -1049,6 +1054,11 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: '%txtfun of %s',
             defaults: [null, "Abelson & Sussman"]
         },
+        reportFactorial: {
+            type: 'reporter',
+            category: 'operators',
+            spec: '%n !'
+        },
 
     /*
         reportScript: {
@@ -1254,6 +1264,7 @@ SpriteMorph.prototype.blockAlternatives = {
 
     // control:
     receiveGo: ['receiveClick'],
+    receiveDebug: ['receiveClick'],
     receiveClick: ['receiveGo'],
     doBroadcast: ['doBroadcastAndWait'],
     doBroadcastAndWait: ['doBroadcast'],
@@ -1270,10 +1281,11 @@ SpriteMorph.prototype.blockAlternatives = {
     reportMouseY: ['reportMouseX'],
 
     // operators:
-    reportSum: ['reportDifference', 'reportProduct', 'reportQuotient'],
-    reportDifference: ['reportSum', 'reportProduct', 'reportQuotient'],
-    reportProduct: ['reportDifference', 'reportSum', 'reportQuotient'],
-    reportQuotient: ['reportDifference', 'reportProduct', 'reportSum'],
+    reportSum: ['reportDifference', 'reportProduct', 'reportQuotient', 'reportFactorial'],
+    reportDifference: ['reportSum', 'reportProduct', 'reportQuotient', 'reportFactorial'],
+    reportProduct: ['reportDifference', 'reportSum', 'reportQuotient', 'reportFactorial'],
+    reportQuotient: ['reportDifference', 'reportProduct', 'reportSum', 'reportFactorial'],
+    reportFactorial: ['reportDifference', 'reportProduct', 'reportQuotient', 'reportSum'],
     reportLessThan: ['reportEquals', 'reportGreaterThan'],
     reportEquals: ['reportLessThan', 'reportGreaterThan'],
     reportGreaterThan: ['reportEquals', 'reportLessThan'],
@@ -1827,6 +1839,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
     } else if (cat === 'control') {
 
         blocks.push(block('receiveGo'));
+        blocks.push(block('receiveDebug'));
         blocks.push(block('receiveKey'));
         blocks.push(block('receiveClick'));
         blocks.push(block('receiveMessage'));
@@ -1942,6 +1955,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportDifference'));
         blocks.push(block('reportProduct'));
         blocks.push(block('reportQuotient'));
+        blocks.push(block('reportFactorial'));
         blocks.push('-');
         blocks.push(block('reportModulus'));
         blocks.push(block('reportRound'));
@@ -3489,10 +3503,14 @@ SpriteMorph.prototype.allHatBlocksFor = function (message) {
     if (typeof message === 'number') {message = message.toString(); }
     return this.scripts.children.filter(function (morph) {
         var event;
+        //if (morph.blockSpec.equals("Debug when %greenflag clicked")
         if (morph.selector) {
             if (morph.selector === 'receiveMessage') {
                 event = morph.inputs()[0].evaluate();
                 return event === message || (event instanceof Array);
+            }
+            if (morph.selector === 'receiveDebug') {
+                return message === '__shout__go__';
             }
             if (morph.selector === 'receiveGo') {
                 return message === '__shout__go__';
@@ -4992,6 +5010,7 @@ StageMorph.prototype.blockTemplates = function (category) {
     } else if (cat === 'control') {
 
         blocks.push(block('receiveGo'));
+        blocks.push(block('receiveDebug'));
         blocks.push(block('receiveKey'));
         blocks.push(block('receiveClick'));
         blocks.push(block('receiveMessage'));
@@ -5101,6 +5120,7 @@ StageMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportDifference'));
         blocks.push(block('reportProduct'));
         blocks.push(block('reportQuotient'));
+        blocks.push(block('reportFactorial'));
         blocks.push('-');
         blocks.push(block('reportModulus'));
         blocks.push(block('reportRound'));

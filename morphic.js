@@ -224,7 +224,6 @@
     Each World has an - invisible - "Hand" resembling the mouse cursor
     (or the user's finger on touch screens) which handles mouse events,
     and may also have a keyboardReceiver to handle key events.
-
     The basic idea of Morphic is to continuously run display cycles and
     to incrementally update the screen by only redrawing those  World
     regions    which have been "dirtied" since the last redraw. Before
