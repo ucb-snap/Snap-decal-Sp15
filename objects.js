@@ -1054,6 +1054,11 @@ SpriteMorph.prototype.initBlocks = function () {
             spec: '%txtfun of %s',
             defaults: [null, "Abelson & Sussman"]
         },
+        reportFactorial: {
+            type: 'reporter',
+            category: 'operators',
+            spec: '%n !'
+        },
 
     /*
         reportScript: {
@@ -1276,10 +1281,11 @@ SpriteMorph.prototype.blockAlternatives = {
     reportMouseY: ['reportMouseX'],
 
     // operators:
-    reportSum: ['reportDifference', 'reportProduct', 'reportQuotient'],
-    reportDifference: ['reportSum', 'reportProduct', 'reportQuotient'],
-    reportProduct: ['reportDifference', 'reportSum', 'reportQuotient'],
-    reportQuotient: ['reportDifference', 'reportProduct', 'reportSum'],
+    reportSum: ['reportDifference', 'reportProduct', 'reportQuotient', 'reportFactorial'],
+    reportDifference: ['reportSum', 'reportProduct', 'reportQuotient', 'reportFactorial'],
+    reportProduct: ['reportDifference', 'reportSum', 'reportQuotient', 'reportFactorial'],
+    reportQuotient: ['reportDifference', 'reportProduct', 'reportSum', 'reportFactorial'],
+    reportFactorial: ['reportDifference', 'reportProduct', 'reportQuotient', 'reportSum'],
     reportLessThan: ['reportEquals', 'reportGreaterThan'],
     reportEquals: ['reportLessThan', 'reportGreaterThan'],
     reportGreaterThan: ['reportEquals', 'reportLessThan'],
@@ -1949,6 +1955,7 @@ SpriteMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportDifference'));
         blocks.push(block('reportProduct'));
         blocks.push(block('reportQuotient'));
+        blocks.push(block('reportFactorial'));
         blocks.push('-');
         blocks.push(block('reportModulus'));
         blocks.push(block('reportRound'));
@@ -5113,6 +5120,7 @@ StageMorph.prototype.blockTemplates = function (category) {
         blocks.push(block('reportDifference'));
         blocks.push(block('reportProduct'));
         blocks.push(block('reportQuotient'));
+        blocks.push(block('reportFactorial'));
         blocks.push('-');
         blocks.push(block('reportModulus'));
         blocks.push(block('reportRound'));

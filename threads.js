@@ -1991,6 +1991,15 @@ Process.prototype.reportQuotient = function (a, b) {
     return +a / +b;
 };
 
+Process.prototype.reportFactorial = function (a) {
+    var x = +a;
+    var result = x;
+    while (--x > 0) {
+        result *= x;
+    }
+    return result;
+}
+
 Process.prototype.reportModulus = function (a, b) {
     var x = +a,
         y = +b;
